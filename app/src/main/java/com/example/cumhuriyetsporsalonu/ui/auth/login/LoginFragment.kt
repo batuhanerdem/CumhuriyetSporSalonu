@@ -1,36 +1,40 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.login
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.databinding.FragmentLoginBinding
-import com.example.cumhuriyetsporsalonu.ui.home.MainActivity
+import com.example.cumhuriyetsporsalonu.ui.auth.AuthActivity
+import com.example.cumhuriyetsporsalonu.ui.base.BaseFragment
+import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
-    private val viewModel: LoginViewModel by viewModels()
-    private val successString = "Basarili bir sekilde giris yapildi"
+class LoginFragment : BaseFragment<LoginActionBus, LoginViewModel, FragmentLoginBinding>(
+    FragmentLoginBinding::inflate, LoginViewModel::class.java,
+) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentLoginBinding.inflate(inflater)
-        return binding.root
+    override fun initPage() {
+        setupOnClickListeners()
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupOnClickListeners()
-        setObservers()
+    override suspend fun onAction(action: LoginActionBus) {
+        when (action) {
+            LoginActionBus.Init -> {}
+            is LoginActionBus.LoggedIn -> {
+                progressBar.hide()
+                val message = R.string.login_success.stringfy()
+                showSuccessMessage(message)
+                setUidToActivityViewModel(action.uid)
+                navigateSplash()
+            }
+
+            LoginActionBus.Loading -> progressBar.show()
+            is LoginActionBus.ShowError -> {
+                progressBar.hide()
+                val message = action.error ?: R.string.login_error_default.stringfy()
+                showErrorMessage(message)
+            }
+        }
     }
 
     private fun setupOnClickListeners() {
@@ -46,35 +50,20 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun setObservers() {
-        viewModel.isLoggedInrSuccessful.observe(viewLifecycleOwner) {
-            if (it) {
-                showToast(successString)
-                navigateHome()
-            }
-        }
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            showToast(it)
-        }
+    private fun setUidToActivityViewModel(uid: String) {
+        val activity = requireActivity() as AuthActivity
+        activity.setUid(uid)
     }
+
 
     private fun navigateRegister() {
         val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-        findNavController().navigate(action)
+        navigateTo(action)
     }
 
-    private fun navigateHome() {
-        Intent(requireContext(), MainActivity::class.java).apply {
-            startActivity(this)
-            requireActivity().finish()
-        }
+    private fun navigateSplash() {
+        val action = LoginFragmentDirections.actionLoginFragmentToSplashFragment()
+        navigateTo(action)
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(
-            requireContext(),
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
-    }
 }

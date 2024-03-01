@@ -1,30 +1,39 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.login
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
+import com.example.cumhuriyetsporsalonu.R
+import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
+import com.example.cumhuriyetsporsalonu.utils.Resource
+import com.example.cumhuriyetsporsalonu.utils.Stringfy
+import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
+import com.example.newsapp.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
-    private val auth: FirebaseAuth = Firebase.auth
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val firebaseRepository: FirebaseRepository
+) : BaseViewModel<LoginActionBus>() {
 
-    private val _isLoggedInrSuccessful = MutableLiveData<Boolean>()
-    val isLoggedInrSuccessful: LiveData<Boolean>
-        get() = _isLoggedInrSuccessful
-
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String>
-        get() = _errorMessage
-
-    fun loginWithEmailAndPassword(email: String, password: String) {
+    fun loginWithEmailAndPassword(email: String, password: String, name: String? = null) {
         if (email.isBlank() || password.isBlank()) return
-        auth.signInWithEmailAndPassword(email, password).addOnSuccessListener {
-            _isLoggedInrSuccessful.value = true
-        }.addOnFailureListener {
-            println(it.message)
-            _errorMessage.value = it.localizedMessage
+        sendAction(LoginActionBus.Loading)
+        firebaseRepository.signIn(
+            email, password, ::signInCallBack
+        )
+
+
+    }
+
+    private fun signInCallBack(result: Resource<String>) {
+        when (result) {
+            is Resource.Loading -> {}
+            is Resource.Error -> sendAction(LoginActionBus.ShowError(result.message))
+
+            is Resource.Success -> {
+                result.data?.let {
+                    sendAction(LoginActionBus.LoggedIn(it))
+                }
+            }
         }
     }
 }

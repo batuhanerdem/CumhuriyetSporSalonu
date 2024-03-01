@@ -1,3 +1,3 @@
-package com.example.cumhuriyetsporsalonu.ui.base
+package com.example.newsapp.ui.base
 
 interface BaseActionBus

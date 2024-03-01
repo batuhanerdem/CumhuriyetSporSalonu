@@ -1,58 +1,51 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.register
 
 import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.databinding.FragmentRegisterBinding
-import com.example.cumhuriyetsporsalonu.ui.home.MainActivity
+import com.example.cumhuriyetsporsalonu.ui.base.BaseFragment
+import com.example.cumhuriyetsporsalonu.ui.main.MainActivity
+import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegisterFragment : Fragment() {
-    private lateinit var binding: FragmentRegisterBinding
-    private val viewModel: RegisterViewModel by viewModels()
-    private val successString = "Basarili bir sekilde kayit olundu"
+class RegisterFragment :
+    BaseFragment<RegisterActionBus, RegisterViewModel, FragmentRegisterBinding>(
+        FragmentRegisterBinding::inflate, RegisterViewModel::class.java
+    ) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentRegisterBinding.inflate(inflater)
-        return binding.root
+    override fun initPage() {
+        setupOnClickListeners()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupOnClickListeners()
-        setObservers()
+    override suspend fun onAction(action: RegisterActionBus) {
+        when (action) {
+            RegisterActionBus.Init -> {}
+            RegisterActionBus.Loading -> progressBar.show()
+            RegisterActionBus.RegisteredSuccessFully -> {
+                progressBar.hide()
+                val message = R.string.register_success.stringfy()
+                showSuccessMessage(message)
+                navigateHome()
+            }
+
+            is RegisterActionBus.UserIsNotRegistered -> {
+                progressBar.hide()
+                val message = R.string.register_error_default.stringfy()
+                showErrorMessage(message)
+            }
+        }
     }
 
     private fun setupOnClickListeners() {
         binding.apply {
             btnRegister.setOnClickListener {
-                navigateHome()
-                return@setOnClickListener
+//                navigateHome()
+//                return@setOnClickListener
                 val email = edtEmail.text.toString()
                 val password = edtPassword.text.toString()
                 viewModel.createAccountWithEmailAndPassword(email, password)
             }
-        }
-    }
-
-    private fun setObservers() {
-        viewModel.isRegisterSuccessful.observe(viewLifecycleOwner) {
-            if (it) {
-                showToast(successString)
-                navigateHome()
-            }
-        }
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            showToast(it)
         }
     }
 
@@ -62,13 +55,4 @@ class RegisterFragment : Fragment() {
             requireActivity().finish()
         }
     }
-
-    private fun showToast(message: String) {
-        Toast.makeText(
-            requireContext(),
-            message,
-            Toast.LENGTH_SHORT
-        ).show()
-    }
-
 }

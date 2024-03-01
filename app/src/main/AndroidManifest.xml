@@ -19,7 +19,7 @@
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="true"
-            android:label="Auth2Activity"
+            android:label="AuthActivity"
             android:theme="@style/Theme.CumhuriyetSporSalonu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.home.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.CumhuriyetSporSalonu" />

@@ -53,11 +53,15 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-
-    val nav_version = "2.6.0"
+    // Lifecycle
     val lifecycle_version = "2.6.2"
 
+    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+
     // Navigation
+    val nav_version = "2.6.0"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
@@ -69,17 +73,23 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48.1")
     kapt("com.google.dagger:hilt-compiler:2.48.1")
 
-    // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    // LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-
-//    // Sneaker
-//    val sneaker_version = "2.0.0"
-//    implementation("com.irozon.sneaker:sneaker:$sneaker_version")
+    // Sneaker
+    val sneaker_version = "2.0.0"
+    implementation("com.irozon.sneaker:sneaker:$sneaker_version")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
 
+    // Lottie
+    val lottie_version = "6.2.0"
+    implementation("com.airbnb.android:lottie:$lottie_version")
+
+    implementation("com.github.batuhafwenerdem:KeyboardListeffener:master-SNAPSHOTew")
+
+
+}
+kapt {
+    correctErrorTypes = true
 }
