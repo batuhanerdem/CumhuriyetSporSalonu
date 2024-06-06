@@ -1,4 +1,4 @@
-package com.example.cumhuriyetsporsalonu.domain.model
+package com.example.cumhuriyetsporsalonuadmin.domain.model
 
 data class User(
     val uid: String,
@@ -8,5 +8,8 @@ data class User(
     var age: String? = null,
     var height: String? = null,
     var weight: String? = null,
-    var isVerified: Boolean = false
+    var isVerified: Boolean = false,
+    var lessonUids: List<String> = emptyList()
 )
+
+typealias Student = User
