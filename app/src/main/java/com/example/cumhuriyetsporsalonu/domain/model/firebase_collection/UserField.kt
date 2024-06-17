@@ -1,4 +1,4 @@
-package com.example.cumhuriyetsporsalonu.domain.model
+package com.example.cumhuriyetsporsalonu.domain.model.firebase_collection
 
 enum class UserField(val key: String) {
     UID("uid"),

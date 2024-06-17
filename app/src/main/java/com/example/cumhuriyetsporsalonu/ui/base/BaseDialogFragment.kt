@@ -14,8 +14,6 @@ import androidx.viewbinding.ViewBinding
 import com.example.cumhuriyetsporsalonu.utils.MessageHandler
 import com.example.cumhuriyetsporsalonu.utils.ProgressBar
 import com.example.cumhuriyetsporsalonu.utils.Stringfy
-import com.example.newsapp.ui.base.BaseActionBus
-import com.example.newsapp.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch

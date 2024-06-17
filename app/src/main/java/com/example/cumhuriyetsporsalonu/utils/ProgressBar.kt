@@ -2,6 +2,7 @@ package com.example.cumhuriyetsporsalonu.utils
 
 import androidx.fragment.app.FragmentActivity
 import com.example.cumhuriyetsporsalonu.R
+import com.example.cumhuriyetsporsalonu.utils.CustomProgressBar
 
 class ProgressBar(activity: FragmentActivity) {
 

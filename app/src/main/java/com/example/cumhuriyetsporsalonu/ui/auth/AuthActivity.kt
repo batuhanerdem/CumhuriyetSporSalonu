@@ -1,7 +1,7 @@
 package com.example.cumhuriyetsporsalonu.ui.auth
 
 import com.example.cumhuriyetsporsalonu.databinding.ActivityAuthBinding
-import com.example.newsapp.ui.base.BaseActivity
+import com.example.cumhuriyetsporsalonu.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

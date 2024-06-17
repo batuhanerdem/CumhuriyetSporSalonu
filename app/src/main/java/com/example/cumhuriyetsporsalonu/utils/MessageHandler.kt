@@ -4,8 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import com.irozon.sneaker.Sneaker
-import com.example.cumhuriyetsporsalonu.R
 import android.widget.Toast
+import com.example.cumhuriyetsporsalonu.R
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.FragmentScoped
 import javax.inject.Inject

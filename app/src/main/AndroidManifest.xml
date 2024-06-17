@@ -29,7 +29,6 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="false"
-            android:label="@string/title_activity_main"
             android:theme="@style/Theme.CumhuriyetSporSalonu" />
     </application>
 

@@ -1,7 +1,7 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.login
 
 import com.example.cumhuriyetsporsalonu.utils.Stringfy
-import com.example.newsapp.ui.base.BaseActionBus
+import com.example.cumhuriyetsporsalonu.ui.base.BaseActionBus
 
 sealed interface LoginActionBus : BaseActionBus {
 

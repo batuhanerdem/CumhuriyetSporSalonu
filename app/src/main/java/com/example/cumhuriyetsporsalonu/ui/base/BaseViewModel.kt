@@ -1,4 +1,4 @@
-package com.example.newsapp.ui.base
+package com.example.cumhuriyetsporsalonu.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

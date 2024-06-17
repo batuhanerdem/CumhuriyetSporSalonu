@@ -6,7 +6,7 @@ import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.databinding.ActivityMainBinding
 import com.example.cumhuriyetsporsalonu.domain.model.User
 import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
-import com.example.newsapp.ui.base.BaseActivity
+import com.example.cumhuriyetsporsalonu.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

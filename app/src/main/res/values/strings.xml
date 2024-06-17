@@ -1,35 +1,72 @@
 <resources>
     <string name="app_name">CumhuriyetSporSalonu</string>
-    <string name="title_activity_main">MainActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_auth">AuthActivity</string>
+    <string name="default_success_message">Başarılı</string>
+    <string name="default_error_message">Bir hata oluştu</string>
 
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="monday">Pazartesi</string>
+    <string name="tuesday">Salı</string>
+    <string name="wednesday">Çarşamba</string>
+    <string name="thursday">Perşembe</string>
+    <string name="friday">Cuma</string>
+    <string name="saturday">Cumartesi</string>
+    <string name="sunday">Pazar</string>
 
-    <string name="default_success_message">Basarili</string>
-    <string name="default_error_message">Bir hata olustu</string>
-
-    <string name="login_success">Başarı ile giriş yapıldı</string>
-    <string name="login_error_default">Giriş yaparken bir sorun meydana geldi</string>
-    <string name="login_error_invalid_credentials">Hatalı kullanıcı bilgileri kullanıldı</string>
+    <string name="login_success">Başarıyla giriş yapıldı</string>
+    <string name="login_error_default">Giriş yaparken bir sorun oluştu</string>
+    <string name="login_error_invalid_credentials">Geçersiz kimlik bilgileri kullanıldı</string>
     <string name="login_error_empty_space">Lütfen giriş bilgilerini boş bırakmayınız</string>
     <string name="login_error_invalid_user">Kullanıcı hesabı bulunamadı ya da devre dışı bırakıldı</string>
     <string name="login_error_user">Kullanıcı hesabı durumu nedeniyle giriş yetkisi bulunmamaktadır</string>
     <string name="login_error_recent_login">Tekrar giriş yapmanız gerekiyor</string>
 
-    <string name="firebase_error_too_many_request">Çok fazla sayıda istek gönderdiniz, biraz bekleyip tekrar deneyin</string>
-    <string name="firebase_error_network">İnternet bağlantınızı kontrol ediniz</string>
+    <string name="firebase_error_too_many_request">Çok fazla istek gönderdiniz, lütfen biraz bekleyin ve tekrar deneyin</string>
+    <string name="firebase_error_network">Lütfen internet bağlantınızı kontrol edin</string>
 
-
-    <string name="register_success">Başarı ile kayıt olundu</string>
+    <string name="register_success">Başarıyla kayıt olundu</string>
     <string name="register_error_user_collision">Bu e-posta adresi başka bir kullanıcı tarafından kullanılıyor.</string>
     <string name="register_error_invalid_credantial">Geçersiz format</string>
     <string name="register_error_weak_password">Lütfen daha güçlü bir şifre giriniz</string>
-    <string name="register_error_default">Kayıt olurken bir sorun meydana geldi</string>
+    <string name="register_error_default">Kayıt olurken bir sorun oluştu</string>
+
+    <string name="update_error_default">Kaydetme başarısız</string>
+    <string name="update_success">Kaydetme başarılı</string>
 
     <string name="form_error_blank_spaces">Lütfen boş alan bırakmayınız</string>
+    <string name="lesson_saving_error_message">Ders kaydedilemedi. Lütfen girdiğiniz değerleri kontrol edin.</string>
+
+
+    <string name="cancel">İptal</string>
+    <string name="lesson">Ders</string>
+    <string name="lessons">Dersler</string>
+    <string name="e_g_kick_box">Örnek: Kick Box</string>
+    <string name="day">Gün</string>
+    <string name="press_to_select_a_day">Bir Gün Seçmek İçin Basın</string>
+    <string name="starts_at">Başlangıç Saati</string>
+    <string name="e_g_14_00">Örnek: 14.00</string>
+    <string name="ends_at">Bitiş Saati</string>
+    <string name="e_g_15_00">Örnek: 15.00</string>
+    <string name="add_students">Öğrenci Ekle</string>
+    <string name="add">Ekle</string>
+    <string name="update">Güncelle</string>
+    <string name="hours">Saatler</string>
+    <string name="student_number">Öğrenci sayısı</string>
+    <string name="accept">Kabul Et</string>
+    <string name="deny">Reddet</string>
+    <string name="students">Öğrenciler</string>
+    <string name="add_lesson">Dersi Ekle</string>
+    <string name="sign_up_requests">Kayıt Olma İstekleri</string>
+    <string name="change_admin_credentials">Admin Bilgilerini Değiştirin</string>
+    <string name="second_hour_should_be_after">İkinci Saat İlk Saatten Önce Olmalıdır</string>
+    <string name="fill_the_blanks">Lütfen Boş Alanları Doldurun</string>
+    <string name="lesson_saved">Ders Kaydedildi</string>
+    <string name="username">Kullanıcı Adı</string>
+    <string name="password">Şifre</string>
+    <string name="forgot_passowrd">Şifrenizi mi unuttunuz?</string>
+    <string name="log_in">Giriş yap</string>
+    <string name="cumhuriyet_spor_salonu_admin">Cumhuriyet Spor Salonu Admin</string>
+    <string name="all_students">Öğrenciler</string>
+    <string name="no_students">Kayıtlı Öğrenci Yok</string>
+    <string name="save">Kaydet</string>
 
 
 </resources>

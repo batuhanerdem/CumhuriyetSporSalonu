@@ -1,11 +1,8 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.login
 
-import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.utils.Resource
-import com.example.cumhuriyetsporsalonu.utils.Stringfy
-import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
-import com.example.newsapp.ui.base.BaseViewModel
+import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

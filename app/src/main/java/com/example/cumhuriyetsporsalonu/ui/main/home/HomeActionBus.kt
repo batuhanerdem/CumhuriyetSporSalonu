@@ -1,6 +1,6 @@
 package com.example.cumhuriyetsporsalonu.ui.main.home
 
-import com.example.newsapp.ui.base.BaseActionBus
+import com.example.cumhuriyetsporsalonu.ui.base.BaseActionBus
 
 sealed interface HomeActionBus : BaseActionBus {
 

@@ -1,7 +1,7 @@
 package com.example.cumhuriyetsporsalonu.data.remote.repository
 
 import com.example.cumhuriyetsporsalonu.domain.model.User
-import com.example.cumhuriyetsporsalonu.domain.model.UserField
+import com.example.cumhuriyetsporsalonu.domain.model.firebase_collection.UserField
 import com.example.cumhuriyetsporsalonu.domain.model.enums.CollectionName
 import com.example.cumhuriyetsporsalonu.utils.Resource
 import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
@@ -19,7 +19,7 @@ class FirebaseRepository @Inject constructor(
         email: String, password: String, name: String? = null, callBack: (Resource<User>) -> Unit
     ) {
         auth.createUserWithEmailAndPassword(email, password).addOnFailureListener {
-            callBack(Resource.Error(exception = it))
+            callBack(Resource.Error(message = it.message?.stringfy()))
         }.addOnSuccessListener {
             it.user?.let { user ->
                 val myUser = User(user.uid, email, name ?: "no name")

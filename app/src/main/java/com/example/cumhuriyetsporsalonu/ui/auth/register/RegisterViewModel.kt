@@ -8,7 +8,7 @@ import com.example.cumhuriyetsporsalonu.utils.Resource
 import com.example.cumhuriyetsporsalonu.utils.Stringfy
 import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
 import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
-import com.example.newsapp.ui.base.BaseViewModel
+import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

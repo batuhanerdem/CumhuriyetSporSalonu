@@ -1,4 +1,4 @@
-package com.example.cumhuriyetsporsalonuadmin.domain.model
+package com.example.cumhuriyetsporsalonu.domain.model
 
 data class User(
     val uid: String,

@@ -2,7 +2,7 @@ package com.example.cumhuriyetsporsalonu.ui.main.home
 
 import com.example.cumhuriyetsporsalonu.domain.model.User
 import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
-import com.example.newsapp.ui.base.BaseViewModel
+import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 

@@ -2,7 +2,7 @@ package com.example.cumhuriyetsporsalonu.ui.auth.splash
 
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
-import com.example.newsapp.ui.base.BaseViewModel
+import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

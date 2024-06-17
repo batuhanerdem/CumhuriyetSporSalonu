@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.cumhuriyetsporsalonu"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -85,9 +85,6 @@ dependencies {
     // Lottie
     val lottie_version = "6.2.0"
     implementation("com.airbnb.android:lottie:$lottie_version")
-
-    implementation("com.github.batuhafwenerdem:KeyboardListeffener:master-SNAPSHOTew")
-
 
 }
 kapt {
