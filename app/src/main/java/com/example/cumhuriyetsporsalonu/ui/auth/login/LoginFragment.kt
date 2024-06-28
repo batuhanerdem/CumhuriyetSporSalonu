@@ -24,8 +24,10 @@ class LoginFragment : BaseFragment<LoginActionBus, LoginViewModel, FragmentLogin
                 progressBar.hide()
                 val message = R.string.login_success.stringfy()
                 showSuccessMessage(message)
-                setUidToActivityViewModel(action.uid)
-                navigateSplash()
+                viewModel.userUid?.let {
+                    setUidToActivityViewModel(it)
+                    navigateSplash()
+                }
             }
 
             LoginActionBus.Loading -> progressBar.show()

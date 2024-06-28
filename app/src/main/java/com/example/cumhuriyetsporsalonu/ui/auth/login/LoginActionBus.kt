@@ -7,7 +7,7 @@ sealed interface LoginActionBus : BaseActionBus {
 
     data object Init : LoginActionBus
 
-    data class LoggedIn(val uid: String) : LoginActionBus
+    data object LoggedIn : LoginActionBus
 
     data class ShowError(val error: Stringfy? = null) : LoginActionBus
 

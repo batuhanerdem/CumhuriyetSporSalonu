@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.bmi.BMIFragment">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/lexend_bold"
+        android:text="@string/bmi_calculator"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/lexend_regular"
+        android:paddingHorizontal="20dp"
+        android:text="@string/bmi_info"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <EditText
+        android:id="@+id/edtWeight"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_gray_edittext"
+        android:drawableEnd="@drawable/ic_weight"
+        android:fontFamily="@font/lexend_regular"
+        android:hint="@string/weight"
+        android:paddingHorizontal="20dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvInfo"
+        app:layout_constraintTop_toBottomOf="@id/tvInfo" />
+
+    <EditText
+        android:id="@+id/edtHeight"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_gray_edittext"
+        android:drawableEnd="@drawable/ic_height"
+        android:fontFamily="@font/lexend_regular"
+        android:hint="@string/height"
+        android:paddingHorizontal="20dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/edtWeight"
+        app:layout_constraintTop_toBottomOf="@id/edtWeight" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCalculateBMI"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/bg_add_lesson_button"
+        android:fontFamily="@font/lexend_regular"
+        android:text="@string/calculate_bmi"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtHeight" />
+
+    <TextView
+        android:id="@+id/tvYourBMI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/lexend_bold"
+        android:text="@string/your_bmi"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/btnCalculateBMI"
+        app:layout_constraintTop_toBottomOf="@id/btnCalculateBMI" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnCalculateBMI"
+        app:layout_constraintStart_toStartOf="@id/btnCalculateBMI"
+        app:layout_constraintTop_toBottomOf="@id/tvYourBMI">
+
+        <TextView
+            android:id="@+id/tvHealthyBMI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend_regular"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="50 - 70 kg" />
+
+        <TextView
+            android:id="@+id/tvHealthyBMIString"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lexend_regular"
+            android:text="@string/healthy_weight"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tvHealthyBMI"
+            app:layout_constraintTop_toBottomOf="@id/tvHealthyBMI" />
+
+        <TextView
+            android:id="@+id/tvUserBMI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lexend_regular"
+            tools:text="23.4"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tvHealthyBMIString"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvHealthyBMI" />
+
+
+        <TextView
+            android:id="@+id/tvUnderWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/lexend_regular"
+            android:text="@string/underweight"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tvHealthyBMIString"
+            app:layout_constraintTop_toBottomOf="@id/tvHealthyBMIString" />
+
+        <TextView
+            android:id="@+id/tvNormalWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/lexend_regular"
+            android:text="@string/normal_weight"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tvUnderWeight"
+            app:layout_constraintTop_toBottomOf="@id/tvUnderWeight" />
+
+        <TextView
+            android:id="@+id/tvOverWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/lexend_regular"
+            android:text="@string/overweight"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tvNormalWeight"
+            app:layout_constraintTop_toBottomOf="@id/tvNormalWeight" />
+
+        <TextView
+            android:id="@+id/tvObese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/lexend_regular"
+            android:text="@string/obese"
+            android:textColor="@color/dark_blue"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tvOverWeight"
+            app:layout_constraintTop_toBottomOf="@id/tvOverWeight" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

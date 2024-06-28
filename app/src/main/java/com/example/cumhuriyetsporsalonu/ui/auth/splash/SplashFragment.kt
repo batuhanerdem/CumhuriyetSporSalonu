@@ -7,6 +7,7 @@ import com.example.cumhuriyetsporsalonu.ui.auth.AuthActivity
 import com.example.cumhuriyetsporsalonu.ui.base.BaseFragment
 import com.example.cumhuriyetsporsalonu.ui.main.MainActivity
 import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
+import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +28,9 @@ class SplashFragment : BaseFragment<SplashActionBus, SplashViewModel, FragmentSp
                 navigateHome()
             }
 
+            SplashActionBus.NotVerified -> {
+                navigateNotVerifiedFragment()
+            }
         }
     }
 
@@ -37,9 +41,16 @@ class SplashFragment : BaseFragment<SplashActionBus, SplashViewModel, FragmentSp
         }
     }
 
+    private fun navigateNotVerifiedFragment() {
+        val user = UserUtils.getCurrentUser() ?: return
+        val action =
+            SplashFragmentDirections.actionSplashFragmentToNotVerifiedFragment(user.isVerified)
+        navigateTo(action)
+    }
+
     private fun setUid() {
         val activity = requireActivity() as AuthActivity
-        val uid = activity.getUid()
+        val uid = activity.getUid() ?: return
         viewModel.setCurrentUser(uid)
     }
 }

@@ -1,10 +1,11 @@
 package com.example.cumhuriyetsporsalonu.utils
 
+import android.annotation.SuppressLint
 import android.util.Log
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
-
+@SuppressLint("NewApi")
 object LocalTimeConverter {
     private val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH.mm")
     fun String.toLocalTime(): LocalTime? {

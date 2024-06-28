@@ -58,14 +58,41 @@
     <string name="second_hour_should_be_after">Second Lesson Should be After the First Lesson</string>
     <string name="fill_the_blanks">Please Fill the Blanks</string>
     <string name="lesson_saved">Lesson is Saved</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="email">E-mail</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="forgot_passowrd">Forgot passowrd?</string>
+    <string name="have_an_account">Have an account? </string>
     <string name="log_in">Log in</string>
-    <string name="cumhuriyet_spor_salonu_admin">Cumhuriyet Spor Salonu Admin</string>
+    <string name="log_in_underlined"><u>Log in</u></string>
+    <string name="register">Register</string>
+    <string name="cumhuriyet_spor_salonu">Cumhuriyet Spor Salonu</string>
+    <string name="register_to_gym">Join the Cumhuriyet Spor Salonu</string>
     <string name="all_students">Students</string>
     <string name="no_students">No Registered Students</string>
     <string name="save">Save</string>
 
+    <string name="no_lesson_found">There is no lesson registered</string>
 
+    <string name="bmi_calculator">BMI Calculator</string>
+    <string name="bmi_info">BMI is a measure of body fat based on height and weight. Enter your weight in kg and height in meters.</string>
+    <string name="weight">Kilo</string>
+    <string name="height">Boy</string>
+    <string name="calculate_bmi">Calculate BMI</string>
+    <string name="your_bmi">Your BMI</string>
+
+    <string name="healthy_weight">Healthy Weight</string>
+    <string name="underweight">Underweight: &lt; 18.5</string>
+    <string name="normal_weight">Normal Weight: 18.5 - 24.9</string>
+    <string name="overweight">Overweight: 25 - 29.9</string>
+    <string name="obese">Obese: &gt; 30</string>
+
+    <string name="wait_for_verify_title">Application is waiting </string>
+    <string name="verify_denied_title">Application denied</string>
+    <string name="wait_for_verify_info"> Your application is being reviewed.</string>
+    <string name="verify_denied_info">Your application has been denied</string>
+    <string name="wait_for_verify">Your application has been sent to the admin. You\'ll need to wait for the admin to respond to your application. You\'ll be able to log in once your account is verified.</string>
+    <string name="verify_denied">We\'re sorry, but your application to join this gym has been denied by the admin. If you have any questions or need further assistance, please contact the gym.</string>
 </resources>

@@ -9,4 +9,14 @@
         android:name="com.example.cumhuriyetsporsalonu.ui.main.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/BMIFragment"
+        android:name="com.example.cumhuriyetsporsalonu.ui.main.bmi.BMIFragment"
+        android:label="fragment_bmi"
+        tools:layout="@layout/fragment_bmi" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.cumhuriyetsporsalonu.ui.main.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

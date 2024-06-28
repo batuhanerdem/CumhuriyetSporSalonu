@@ -10,6 +10,8 @@ sealed interface SplashActionBus : BaseActionBus {
 
     data object Loading : SplashActionBus
 
+    data object NotVerified: SplashActionBus
+
     data object Error : SplashActionBus
 
 }

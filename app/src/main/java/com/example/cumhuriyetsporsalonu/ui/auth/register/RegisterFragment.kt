@@ -1,10 +1,9 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.register
 
-import android.content.Intent
 import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.databinding.FragmentRegisterBinding
+import com.example.cumhuriyetsporsalonu.ui.auth.AuthActivity
 import com.example.cumhuriyetsporsalonu.ui.base.BaseFragment
-import com.example.cumhuriyetsporsalonu.ui.main.MainActivity
 import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,16 +21,17 @@ class RegisterFragment :
         when (action) {
             RegisterActionBus.Init -> {}
             RegisterActionBus.Loading -> progressBar.show()
-            RegisterActionBus.RegisteredSuccessFully -> {
+            RegisterActionBus.RegisteredSuccessfully -> {
                 progressBar.hide()
+                setUidToActivityViewModel(viewModel.userUid!!) //look here sometime
                 val message = R.string.register_success.stringfy()
                 showSuccessMessage(message)
-                navigateHome()
+                navigateSplash()
             }
 
-            is RegisterActionBus.UserIsNotRegistered -> {
+            is RegisterActionBus.ShowError -> {
                 progressBar.hide()
-                val message = R.string.register_error_default.stringfy()
+                val message = action.error ?: R.string.register_error_default.stringfy()
                 showErrorMessage(message)
             }
         }
@@ -40,19 +40,26 @@ class RegisterFragment :
     private fun setupOnClickListeners() {
         binding.apply {
             btnRegister.setOnClickListener {
-//                navigateHome()
-//                return@setOnClickListener
                 val email = edtEmail.text.toString()
                 val password = edtPassword.text.toString()
-                viewModel.createAccountWithEmailAndPassword(email, password)
+                val name = edtName.text.toString()
+                val surname = edtSurname.text.toString()
+                viewModel.createAccountWithEmailPasswordName(email, password, name, surname)
+            }
+            tvLogin.setOnClickListener {
+                navigateBack()
             }
         }
     }
 
-    private fun navigateHome() {
-        Intent(requireContext(), MainActivity::class.java).apply {
-            startActivity(this)
-            requireActivity().finish()
-        }
+    private fun setUidToActivityViewModel(uid: String) {
+        val activity = requireActivity() as AuthActivity
+        activity.setUid(uid)
     }
+
+    private fun navigateSplash() {
+        val action = RegisterFragmentDirections.actionRegisterFragmentToSplashFragment()
+        navigateTo(action)
+    }
+
 }

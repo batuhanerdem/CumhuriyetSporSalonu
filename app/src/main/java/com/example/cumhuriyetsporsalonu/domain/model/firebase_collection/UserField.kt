@@ -2,7 +2,13 @@ package com.example.cumhuriyetsporsalonu.domain.model.firebase_collection
 
 enum class UserField(val key: String) {
     UID("uid"),
-    NAME("name"),
     EMAIL("email"),
-    IS_VERIFIED("isVerified"),
+    NAME("name"),
+    SURNAME("surname"),
+    AGE("age"),
+    HEIGHT("height"),
+    WEIGHT("weight"),
+    BMI("bmi"),
+    IS_VERIFIED("verified"),
+    LESSON_UIDS("lessonUids")
 }

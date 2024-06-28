@@ -30,5 +30,18 @@
         android:id="@+id/splashFragment"
         android:name="com.example.cumhuriyetsporsalonu.ui.auth.splash.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" />
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_notVerifiedFragment"
+            app:destination="@id/notVerifiedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notVerifiedFragment"
+        android:name="com.example.cumhuriyetsporsalonu.ui.auth.splash.not_verified.NotVerifiedFragment"
+        android:label="fragment_not_verified"
+        tools:layout="@layout/fragment_not_verified" >
+        <argument
+            android:name="verifiedStatus"
+            app:argType="com.example.cumhuriyetsporsalonu.domain.model.VerifiedStatus" />
+    </fragment>
 </navigation>

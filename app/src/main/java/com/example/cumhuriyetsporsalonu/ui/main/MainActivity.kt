@@ -15,7 +15,6 @@ class MainActivity : BaseActivity<MainActionBus, MainActivityViewModel, Activity
     MainActivityViewModel::class.java
 ) {
 
-    private var user: User? = null
     override fun init() {
         println(UserUtils.getCurrentUser()?.name)
         setNavListeners()

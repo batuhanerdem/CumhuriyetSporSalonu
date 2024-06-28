@@ -1,16 +1,13 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.register
 
-import androidx.lifecycle.viewModelScope
 import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
-import com.example.cumhuriyetsporsalonu.domain.model.User
+import com.example.cumhuriyetsporsalonu.data.remote.repository.Uid
+import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import com.example.cumhuriyetsporsalonu.utils.Resource
 import com.example.cumhuriyetsporsalonu.utils.Stringfy
 import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
-import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
-import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,39 +15,27 @@ class RegisterViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : BaseViewModel<RegisterActionBus>() {
 
-    private var user: User? = null
+    var userUid: String? = null
 
-    fun createAccountWithEmailAndPassword(email: String, password: String) {
+    fun createAccountWithEmailPasswordName(
+        email: String, password: String, name: String, surname: String
+    ) {
         if (email.isBlank() || password.isBlank()) return
         sendAction(RegisterActionBus.Loading)
-        viewModelScope.launch {
-            firebaseRepository.register(email, password, null, ::registerCallBack)
-            user?.let { user ->
-                firebaseRepository.createUserForDB(user) {
-                    if (it) {
-                        UserUtils.setCurrentUser(user)
-                        sendAction(RegisterActionBus.RegisteredSuccessFully)
-                    } else {
-                        sendAction(RegisterActionBus.UserIsNotRegistered)
-                    }
-                }
-            }
-
-
-        }
+        firebaseRepository.register(email, password, name, surname, ::registerCallBack)
     }
 
 
-    private fun registerCallBack(result: Resource<User>) {
+    private fun registerCallBack(result: Resource<Uid>) {
         when (result) {
             is Resource.Loading -> {}
             is Resource.Error -> {
-                sendStringfyMessage(result.message)
+                sendAction(RegisterActionBus.ShowError(result.message))
             }
 
             is Resource.Success -> {
-                val user = result.data
-                sendAction(RegisterActionBus.RegisteredSuccessFully)
+                userUid = result.data ?: return
+                sendAction(RegisterActionBus.RegisteredSuccessfully)
             }
         }
 

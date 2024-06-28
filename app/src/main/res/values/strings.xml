@@ -59,14 +59,43 @@
     <string name="second_hour_should_be_after">İkinci Saat İlk Saatten Önce Olmalıdır</string>
     <string name="fill_the_blanks">Lütfen Boş Alanları Doldurun</string>
     <string name="lesson_saved">Ders Kaydedildi</string>
+    <string name="name">İsim</string>
+    <string name="surname">Soy İsim</string>
+    <string name="email">E-posta</string>
     <string name="username">Kullanıcı Adı</string>
     <string name="password">Şifre</string>
     <string name="forgot_passowrd">Şifrenizi mi unuttunuz?</string>
+    <string name="have_an_account">Hesabınız mı var? </string>
     <string name="log_in">Giriş yap</string>
-    <string name="cumhuriyet_spor_salonu_admin">Cumhuriyet Spor Salonu Admin</string>
+    <string name="log_in_underlined"><u>Giriş yap</u></string>
+    <string name="register">Kayıt Ol</string>
+    <string name="cumhuriyet_spor_salonu">Cumhuriyet Spor Salonu</string>
+    <string name="register_to_gym">Cumhuriyet Spor Salonuna Katıl</string>
     <string name="all_students">Öğrenciler</string>
     <string name="no_students">Kayıtlı Öğrenci Yok</string>
     <string name="save">Kaydet</string>
+
+    <string name="no_lesson_found">Kayıtlı ders bulunmamaktadır</string>
+
+    <string name="bmi_calculator">BMI (Vücut Kitle İndeksi) Hesaplayıcı</string>
+    <string name="bmi_info">BMI, boy ve kiloya dayalı vücut yağ oranının bir ölçüsüdür. Kilonuzu kilogram olarak ve boyunuzu metre olarak girin.</string>
+    <string name="weight">Kilo</string>
+    <string name="height">Boy</string>
+    <string name="calculate_bmi">BMI Hesapla</string>
+    <string name="your_bmi">BMI"'niz (Vücut Kitle İndeksiniz)</string>
+
+    <string name="healthy_weight">Sağlıklı Kilo</string>
+    <string name="underweight">Zayıf: &lt; 18.5</string>
+    <string name="normal_weight">Normal Kilo: 18.5 - 24.9</string>
+    <string name="overweight">Fazla Kilolu: 25 - 29.9</string>
+    <string name="obese">Obez: &gt; 30</string>
+
+    <string name="wait_for_verify_title">Başvuru bekliyor </string>
+    <string name="verify_denied_title">Başvuru reddedildi</string>
+    <string name="wait_for_verify_info">Başvurunuz inceleniyor.</string>
+    <string name="verify_denied_info">Başvurunuz reddedildi.</string>
+    <string name="verify_denied">Üzgünüz, ancak bu spor salonuna katılma başvurunuz yönetici tarafından reddedildi. Sorularınız varsa veya daha fazla yardıma ihtiyacınız olursa lütfen spor salonu ile iletişime geçin.</string>
+    <string name="wait_for_verify">Başvurunuz yöneticiye gönderildi. Başvurunuza yanıt vermesi için yöneticiye beklemeniz gerekecek. Hesabınız doğrulandığında giriş yapabileceksiniz.</string>
 
 
 </resources>
