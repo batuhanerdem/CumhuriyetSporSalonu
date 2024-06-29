@@ -11,4 +11,8 @@ object UserUtils {
     fun setCurrentUser(user: User) {
         currentUser = user
     }
+
+    fun clearUser() {
+        currentUser = null
+    }
 }

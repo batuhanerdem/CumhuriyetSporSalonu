@@ -16,10 +16,6 @@ enum class Days(val number: Int, val stringIdAsStringfy: Stringfy) {
     SATURDAY(6, R.string.saturday.stringfy()),
     SUNDAY(7, R.string.sunday.stringfy());
 
-    fun toSelectable(): SelectableData<Days> {
-        return SelectableData(this, false)
-    }
-
     companion object {
         fun Int.toDay(): Days? {
             return when (this) {
