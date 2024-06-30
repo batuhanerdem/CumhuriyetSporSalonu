@@ -95,4 +95,11 @@
     <string name="verify_denied_info">Your application has been denied</string>
     <string name="wait_for_verify">Your application has been sent to the admin. You\'ll need to wait for the admin to respond to your application. You\'ll be able to log in once your account is verified.</string>
     <string name="verify_denied">We\'re sorry, but your application to join this gym has been denied by the admin. If you have any questions or need further assistance, please contact the gym.</string>
+
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="age">Age</string>
+    <string name="profile_info">* Age, weight, and BMI (body mass index) can only be changed from the BMI calculation section</string>
+
+
 </resources>

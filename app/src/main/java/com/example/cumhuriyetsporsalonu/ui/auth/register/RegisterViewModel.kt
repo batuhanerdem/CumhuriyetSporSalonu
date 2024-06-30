@@ -41,10 +41,4 @@ class RegisterViewModel @Inject constructor(
 
     }
 
-
-    private fun sendStringfyMessage(stringfy: Stringfy?) {
-        val message = stringfy ?: R.string.register_error_default.stringfy()
-        sendMessage(message)
-    }
-
 }

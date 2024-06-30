@@ -40,6 +40,7 @@ class RegisterFragment :
     private fun setupOnClickListeners() {
         binding.apply {
             btnRegister.setOnClickListener {
+                if (edtEmail.text == null || edtPassword.text == null || edtName.text == null || edtSurname.text == null) return@setOnClickListener
                 val email = edtEmail.text.toString()
                 val password = edtPassword.text.toString()
                 val name = edtName.text.toString()

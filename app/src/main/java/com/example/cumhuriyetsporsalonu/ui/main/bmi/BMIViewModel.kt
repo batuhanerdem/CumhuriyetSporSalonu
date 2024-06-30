@@ -5,6 +5,8 @@ import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import com.example.cumhuriyetsporsalonu.utils.Resource
 import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,13 +16,22 @@ class BMIViewModel @Inject constructor(
 
 
     fun calculateBMI(weight: Double, height: Double): Double {
-        return weight / (height * height)
+        val heightAsMeter = height / 100
+        val bmi = weight / (heightAsMeter * heightAsMeter)
+        val bmiRounded = BigDecimal(bmi).setScale(1, RoundingMode.DOWN).toDouble()
+        return bmiRounded
     }
 
-    fun calculateHealthyWeightRange(heightM: Double): Pair<Double, Double> {
-        val minHeightInKg = 18.5 * heightM * heightM
-        val maxHeightInKg = 24.9 * heightM * heightM
-        return Pair(minHeightInKg, maxHeightInKg)
+
+    fun calculateHealthyWeightRange(height: Double): Pair<Double, Double> {
+        val heightAsMeter = height / 100
+        val minHeightInKg = 18.5 * heightAsMeter * heightAsMeter
+        val maxHeightInKg = 24.9 * heightAsMeter * heightAsMeter
+
+        val minHeightRounded = BigDecimal(minHeightInKg).setScale(1, RoundingMode.DOWN).toDouble()
+        val maxHeightRounded = BigDecimal(maxHeightInKg).setScale(1, RoundingMode.DOWN).toDouble()
+
+        return Pair(minHeightRounded, maxHeightRounded)
     }
 
     fun saveInfos(bmi: Double, height: Double, weight: Double) {

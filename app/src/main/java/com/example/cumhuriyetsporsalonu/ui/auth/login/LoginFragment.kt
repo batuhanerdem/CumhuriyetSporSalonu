@@ -45,6 +45,7 @@ class LoginFragment : BaseFragment<LoginActionBus, LoginViewModel, FragmentLogin
                 navigateRegister()
             }
             btnLogin.setOnClickListener {
+                if (edtEmail.text == null || edtPassword.text == null) return@setOnClickListener
                 val email = edtEmail.text.toString()
                 val password = edtPassword.text.toString()
                 viewModel.loginWithEmailAndPassword(email, password)

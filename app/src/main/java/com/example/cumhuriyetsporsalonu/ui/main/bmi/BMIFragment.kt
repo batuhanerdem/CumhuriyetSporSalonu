@@ -25,8 +25,10 @@ class BMIFragment : BaseFragment<BMIActionBus, BMIViewModel, FragmentBmiBinding>
         setOnClickListeners()
     }
 
-    private fun setupRV() {
 
+    override fun onResume() {
+        super.onResume()
+        clearFields()
     }
 
     private fun setOnClickListeners() {
@@ -43,11 +45,16 @@ class BMIFragment : BaseFragment<BMIActionBus, BMIViewModel, FragmentBmiBinding>
                     val (minWeight, maxWeight) = viewModel.calculateHealthyWeightRange(height)
                     "$minWeight - $maxWeight".also { tvHealthyBMI.text = it }
                 } catch (e: Exception) {
-                
+
                 }
 
             }
         }
+    }
+
+    private fun clearFields() {
+        binding.edtHeight.text.clear()
+        binding.edtWeight.text.clear()
     }
 
 }

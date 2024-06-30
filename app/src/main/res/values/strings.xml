@@ -60,7 +60,7 @@
     <string name="fill_the_blanks">Lütfen Boş Alanları Doldurun</string>
     <string name="lesson_saved">Ders Kaydedildi</string>
     <string name="name">İsim</string>
-    <string name="surname">Soy İsim</string>
+    <string name="surname">Soyisim</string>
     <string name="email">E-posta</string>
     <string name="username">Kullanıcı Adı</string>
     <string name="password">Şifre</string>
@@ -96,6 +96,12 @@
     <string name="verify_denied_info">Başvurunuz reddedildi.</string>
     <string name="verify_denied">Üzgünüz, ancak bu spor salonuna katılma başvurunuz yönetici tarafından reddedildi. Sorularınız varsa veya daha fazla yardıma ihtiyacınız olursa lütfen spor salonu ile iletişime geçin.</string>
     <string name="wait_for_verify">Başvurunuz yöneticiye gönderildi. Başvurunuza yanıt vermesi için yöneticiye beklemeniz gerekecek. Hesabınız doğrulandığında giriş yapabileceksiniz.</string>
+
+    <string name="profile">Profil</string>
+    <string name="edit_profile">Profili Düzenle</string>
+
+    <string name="age">Yaş</string>
+    <string name="profile_info">* Boy, kilo ve bmi(vücut kitle endeksi) yalnızca bmi hesaplama alanından değiştirilebilir</string>
 
 
 </resources>

@@ -15,17 +15,17 @@ class EditProfileViewModel @Inject constructor(
     val currentUser: User? get() = UserUtils.getCurrentUser()
 
     fun saveUser(
-        name: String?, surname: String?, age: String?, height: String?, weight: String?
+        name: String?, surname: String?, age: String?
     ) {
         val user = currentUser ?: return
-        val newUser = user.copy(name = name, surname = surname, age = age, height =  height, weight =  weight)
+        val newUser = user.copy(name = name, surname = surname, age = age)
         firebaseRepository.setUser(newUser) { action ->
             when (action) {
                 is Resource.Error -> sendAction(EditProfileActionBus.ShowError(action.message))
                 is Resource.Loading -> {}
                 is Resource.Success -> {
+                    UserUtils.setCurrentUser(newUser)
                     sendAction(EditProfileActionBus.UserUpdated)
-                    UserUtils.setCurrentUser(user)
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.example.cumhuriyetsporsalonu.ui.main
 
+import androidx.core.view.isGone
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.cumhuriyetsporsalonu.R
@@ -11,8 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainActionBus, MainActivityViewModel, ActivityMainBinding>(
-    ActivityMainBinding::inflate,
-    MainActivityViewModel::class.java
+    ActivityMainBinding::inflate, MainActivityViewModel::class.java
 ) {
 
     override fun init() {
@@ -29,6 +29,7 @@ class MainActivity : BaseActivity<MainActionBus, MainActivityViewModel, Activity
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         navController.addOnDestinationChangedListener { _, navDestination, _ ->
+            binding.bottomNavigationView.isGone = navDestination.id == R.id.editProfileFragment
             //
         }
         binding.bottomNavigationView.setupWithNavController(navController)

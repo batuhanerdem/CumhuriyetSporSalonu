@@ -8,4 +8,6 @@ sealed interface ProfileActionBus : BaseActionBus {
 
     data object Error : ProfileActionBus
 
+    data object LessonsLoaded : ProfileActionBus
+
 }

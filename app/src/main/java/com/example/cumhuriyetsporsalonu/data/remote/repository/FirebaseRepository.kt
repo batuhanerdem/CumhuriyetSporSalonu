@@ -82,7 +82,8 @@ class FirebaseRepository @Inject constructor(
     }
 
     fun getLessonsByStudentUid(studentUid: String, callback: (Resource<List<Lesson>>) -> Unit) {
-        lessonCollectionRef.whereArrayContains(LessonField.STUDENT_UIDS.key, studentUid).get()
+        lessonCollectionRef.whereArrayContains(LessonField.STUDENT_UIDS.key, studentUid)
+            .orderBy(LessonField.DAY.key).orderBy(LessonField.START_HOUR.key).get()
             .addOnCompleteListener { task ->
                 callback(Resource.Loading())
                 if (task.isSuccessful) {
