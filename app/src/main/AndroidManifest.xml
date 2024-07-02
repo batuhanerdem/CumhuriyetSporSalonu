@@ -19,7 +19,6 @@
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="true"
-            android:label="AuthActivity"
             android:theme="@style/Theme.CumhuriyetSporSalonu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
