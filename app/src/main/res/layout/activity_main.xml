@@ -28,7 +28,7 @@
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:itemBackground="@null"
         app:itemIconSize="27dp"
-        app:itemIconTint="@drawable/color_navbar_colors"
+        app:itemIconTint="@color/bottom_bar_icon_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
