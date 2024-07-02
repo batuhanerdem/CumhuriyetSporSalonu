@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/lexend_bold"
         android:text="@string/edit_profile"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,8 +43,10 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:fontFamily="@font/lexend_bold"
             android:text="@string/name"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,6 +60,7 @@
             android:fontFamily="@font/lexend_medium"
             android:inputType="textPersonName"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@id/tvName"
             app:layout_constraintTop_toBottomOf="@id/tvName" />
@@ -68,6 +72,7 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/lexend_bold"
             android:text="@string/surname"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@id/tvName"
             app:layout_constraintTop_toBottomOf="@id/edtName" />
@@ -77,10 +82,12 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
+
             android:background="@drawable/bg_gray_edittext"
             android:fontFamily="@font/lexend_medium"
             android:inputType="text"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@id/tvSurname"
             app:layout_constraintTop_toBottomOf="@id/tvSurname" />
@@ -91,7 +98,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/lexend_bold"
+
             android:text="@string/age"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@id/tvName"
             app:layout_constraintTop_toBottomOf="@id/edtSurname" />
@@ -100,11 +109,13 @@
             android:id="@+id/edtAge"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_gray_edittext"
             android:fontFamily="@font/lexend_medium"
             android:inputType="number"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@id/tvAge"
             app:layout_constraintTop_toBottomOf="@id/tvAge" />
@@ -114,8 +125,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+
             android:fontFamily="@font/lexend_medium"
             android:text="@string/profile_info"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edtAge" />
 
