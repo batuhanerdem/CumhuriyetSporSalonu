@@ -1,5 +1,6 @@
 package com.example.cumhuriyetsporsalonu.ui.main.home
 
+import android.util.Log
 import androidx.core.view.isVisible
 import com.example.cumhuriyetsporsalonu.databinding.FragmentHomeBinding
 import com.example.cumhuriyetsporsalonu.ui.base.BaseFragment
@@ -14,14 +15,17 @@ class HomeFragment : BaseFragment<HomeActionBus, HomeViewModel, FragmentHomeBind
     override suspend fun onAction(action: HomeActionBus) {
         when (action) {
             HomeActionBus.Init -> {}
-            HomeActionBus.Loading -> progressBar.show()
-            is HomeActionBus.ShowError -> {}
+            is HomeActionBus.ShowError -> {
+                showErrorMessage(action.errorMessage)
+            }
+
             HomeActionBus.LessonsLoaded -> {
                 if (viewModel.lessonList.isEmpty()) {
                     showNoLessonTV()
-                    return
+//                    return
                 }
                 adapter.submitList(viewModel.lessonList)
+                Log.d(TAG, "onAction: ${binding.tvNoLessonFound.isVisible}")
             }
         }
     }

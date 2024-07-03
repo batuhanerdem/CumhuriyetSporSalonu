@@ -9,8 +9,6 @@ sealed interface HomeActionBus : BaseActionBus {
 
     data class ShowError(val errorMessage: Stringfy? = null) : HomeActionBus
 
-    data object Loading : HomeActionBus
-
     data object LessonsLoaded : HomeActionBus
 
 }

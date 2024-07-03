@@ -101,9 +101,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="@+id/btnCalculateBMI"
         app:layout_constraintStart_toStartOf="@id/btnCalculateBMI"
         app:layout_constraintTop_toBottomOf="@id/tvYourBMI">
@@ -193,8 +193,15 @@
             app:layout_constraintStart_toStartOf="@id/tvOverWeight"
             app:layout_constraintTop_toBottomOf="@id/tvOverWeight" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="83dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

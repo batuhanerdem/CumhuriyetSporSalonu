@@ -1,5 +1,6 @@
 package com.example.cumhuriyetsporsalonu.ui.main.home
 
+import android.util.Log
 import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.domain.model.Lesson
@@ -29,10 +30,19 @@ class HomeViewModel @Inject constructor(private val firebaseRepository: Firebase
     fun getLessonsByUid(studentUid: String) {
         firebaseRepository.getLessonsByStudentUid(studentUid) { action ->
             when (action) {
-                is Resource.Error -> sendAction(HomeActionBus.ShowError(action.message))
-                is Resource.Loading -> {}
+                is Resource.Error -> {
+                    setLoading(false)
+                    sendAction(HomeActionBus.ShowError(action.message))
+                }
+
+                is Resource.Loading -> {
+                    setLoading(true)
+                }
+
                 is Resource.Success -> {
+                    setLoading(false)
                     val lessonList = action.data
+                    Log.d(TAG, "getLessonsByUid: $lessonList")
                     lessonList?.let {
                         this.lessonList = it
                         sendAction(HomeActionBus.LessonsLoaded)
