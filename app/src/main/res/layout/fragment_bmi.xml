@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.bmi.BMIFragment">
 
+    <include
+        android:id="@+id/layoutNotificationBar"
+        layout="@layout/layout_top_notification_limit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -16,7 +23,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/layoutNotificationBar" />
 
     <TextView
         android:id="@+id/tvInfo"
@@ -55,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bg_gray_edittext"
         android:drawableEnd="@drawable/ic_height"
         android:fontFamily="@font/lexend_regular"
@@ -91,7 +98,7 @@
         android:id="@+id/tvYourBMI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/lexend_bold"
         android:text="@string/your_bmi"
         android:textSize="18sp"
@@ -101,7 +108,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="@+id/btnCalculateBMI"
@@ -136,20 +143,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lexend_regular"
-            tools:text="23.4"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/tvHealthyBMIString"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvHealthyBMI" />
+            app:layout_constraintTop_toTopOf="@id/tvHealthyBMI"
+            tools:text="23.4" />
 
 
         <TextView
             android:id="@+id/tvUnderWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/lexend_regular"
             android:text="@string/underweight"
             android:textColor="@color/dark_blue"
@@ -161,7 +168,7 @@
             android:id="@+id/tvNormalWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/lexend_regular"
             android:text="@string/normal_weight"
             android:textColor="@color/dark_blue"
@@ -173,7 +180,7 @@
             android:id="@+id/tvOverWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/lexend_regular"
             android:text="@string/overweight"
             android:textColor="@color/dark_blue"
@@ -185,7 +192,7 @@
             android:id="@+id/tvObese"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/lexend_regular"
             android:text="@string/obese"
             android:textColor="@color/dark_blue"
