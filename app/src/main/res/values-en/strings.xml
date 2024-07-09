@@ -78,8 +78,8 @@
 
     <string name="bmi_calculator">BMI Calculator</string>
     <string name="bmi_info">BMI is a measure of body fat based on height and weight. Enter your weight in kg and height in meters.</string>
-    <string name="weight">Kilo</string>
-    <string name="height">Boy</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
     <string name="calculate_bmi">Calculate BMI</string>
     <string name="your_bmi">Your BMI</string>
 
