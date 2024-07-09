@@ -22,7 +22,6 @@ class SplashFragment : BaseFragment<SplashActionBus, SplashViewModel, FragmentSp
     override suspend fun onAction(action: SplashActionBus) {
         when (action) {
             SplashActionBus.Init -> {}
-            SplashActionBus.Loading -> {}
             SplashActionBus.Error -> showErrorMessage(R.string.login_error_default.stringfy())
             is SplashActionBus.ReadyToGo -> {
                 navigateHome()
@@ -42,6 +41,7 @@ class SplashFragment : BaseFragment<SplashActionBus, SplashViewModel, FragmentSp
     }
 
     private fun navigateNotVerifiedFragment() {
+        progressBar.hide()
         val user = UserUtils.getCurrentUser() ?: return
         val action =
             SplashFragmentDirections.actionSplashFragmentToNotVerifiedFragment(user.isVerified)

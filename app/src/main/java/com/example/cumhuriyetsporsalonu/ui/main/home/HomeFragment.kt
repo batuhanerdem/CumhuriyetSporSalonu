@@ -1,6 +1,5 @@
 package com.example.cumhuriyetsporsalonu.ui.main.home
 
-import android.util.Log
 import androidx.core.view.isVisible
 import com.example.cumhuriyetsporsalonu.databinding.FragmentHomeBinding
 import com.example.cumhuriyetsporsalonu.ui.base.BaseFragment
@@ -20,20 +19,15 @@ class HomeFragment : BaseFragment<HomeActionBus, HomeViewModel, FragmentHomeBind
             }
 
             HomeActionBus.LessonsLoaded -> {
-                if (viewModel.lessonList.isEmpty()) {
-                    showNoLessonTV()
-//                    return
-                }
                 adapter.submitList(viewModel.lessonList)
-                Log.d(TAG, "onAction: ${binding.tvNoLessonFound.isVisible}")
+                if (viewModel.lessonList.isEmpty()) showNoLessonTV()
             }
         }
     }
 
     override fun initPage() {
-        viewModel.getUserInfo()
         setRV()
-        viewModel.getLessonsByUid(viewModel.currentUser.uid)
+        viewModel.getLessonsByUid()
     }
 
     private fun setRV() {

@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 open class BaseViewModel<ActionBus : BaseActionBus> : ViewModel() {
 
-    val TAG = this::class.java.simpleName
+    val TAG = "tag"
 
     val actionBus: MutableSharedFlow<ActionBus> = MutableSharedFlow()
     val messageBus: MutableSharedFlow<Stringfy> = MutableSharedFlow()
@@ -38,7 +38,7 @@ open class BaseViewModel<ActionBus : BaseActionBus> : ViewModel() {
     private var loadingCancelJob = loadingCancel()
 
     private fun loadingCancel() = viewModelScope.launch {
-        delay(150)
+//        delay(150)
         mLoadingState.value = false
     }
 

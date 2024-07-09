@@ -1,13 +1,9 @@
 package com.example.cumhuriyetsporsalonu.ui.main.home
 
-import android.util.Log
-import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.domain.model.Lesson
-import com.example.cumhuriyetsporsalonu.domain.model.User
 import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import com.example.cumhuriyetsporsalonu.utils.Resource
-import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
 import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -16,19 +12,10 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(private val firebaseRepository: FirebaseRepository) :
     BaseViewModel<HomeActionBus>() {
     var lessonList = listOf<Lesson>()
-    lateinit var currentUser: User
 
-    fun getUserInfo() {
-        UserUtils.getCurrentUser()?.let {
-            currentUser = it
-            return
-        }
-        val message = R.string.login_error_user.stringfy()
-        sendAction(HomeActionBus.ShowError(message))
-    }
-
-    fun getLessonsByUid(studentUid: String) {
-        firebaseRepository.getLessonsByStudentUid(studentUid) { action ->
+    fun getLessonsByUid() {
+        val currentUser = UserUtils.getCurrentUser() ?: return
+        firebaseRepository.getLessonsByStudentUid(currentUser.uid) { action ->
             when (action) {
                 is Resource.Error -> {
                     setLoading(false)
@@ -41,16 +28,12 @@ class HomeViewModel @Inject constructor(private val firebaseRepository: Firebase
 
                 is Resource.Success -> {
                     setLoading(false)
-                    val lessonList = action.data
-                    Log.d(TAG, "getLessonsByUid: $lessonList")
-                    lessonList?.let {
-                        this.lessonList = it
+                    action.data?.let {
+                        lessonList = it
                         sendAction(HomeActionBus.LessonsLoaded)
                     }
                 }
             }
-
-
         }
     }
 }

@@ -1,11 +1,8 @@
 package com.example.cumhuriyetsporsalonu.domain.model
 
 import com.example.cumhuriyetsporsalonu.R
-import com.example.cumhuriyetsporsalonu.domain.model.Days.Companion.toDay
-import com.example.cumhuriyetsporsalonu.utils.SelectableData
 import com.example.cumhuriyetsporsalonu.utils.Stringfy
 import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
-import java.util.Locale
 
 enum class Days(val number: Int, val stringIdAsStringfy: Stringfy) {
     MONDAY(1, R.string.monday.stringfy()),

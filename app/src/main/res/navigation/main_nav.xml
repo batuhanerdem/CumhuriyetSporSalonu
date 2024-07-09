@@ -10,8 +10,8 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/BMIFragment"
-        android:name="com.example.cumhuriyetsporsalonu.ui.main.bmi.BMIFragment"
+        android:id="@+id/bmiFragment"
+        android:name="com.example.cumhuriyetsporsalonu.ui.main.bmi.BmiFragment"
         android:label="fragment_bmi"
         tools:layout="@layout/fragment_bmi" />
     <fragment

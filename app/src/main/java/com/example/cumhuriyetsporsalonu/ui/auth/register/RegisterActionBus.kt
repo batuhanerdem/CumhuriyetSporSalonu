@@ -13,6 +13,4 @@ sealed interface RegisterActionBus : BaseActionBus {
 
     data class ShowError(val error: Stringfy? = null) : RegisterActionBus
 
-    data object Loading : RegisterActionBus
-
 }

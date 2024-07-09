@@ -1,8 +1,10 @@
 package com.example.cumhuriyetsporsalonu.ui.main.profile.edit_profile
 
+import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.databinding.FragmentEditProfileBinding
-import com.example.cumhuriyetsporsalonu.databinding.FragmentSplashBinding
 import com.example.cumhuriyetsporsalonu.ui.base.BaseFragment
+import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
+import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,21 +15,25 @@ class EditProfileFragment :
 
     override fun initPage() {
         setOnClickListeners()
-        setEdittexts()
+        setEditTexts()
     }
 
     override suspend fun onAction(action: EditProfileActionBus) {
         when (action) {
-            is EditProfileActionBus.ShowError -> {}
+            is EditProfileActionBus.ShowError -> {
+                showErrorMessage(action.error)
+            }
+
             EditProfileActionBus.Init -> {}
             EditProfileActionBus.UserUpdated -> {
                 clearFields()
+                showSuccessMessage(R.string.update_success.stringfy())
             }
         }
     }
 
-    private fun setEdittexts() {
-        val currentUser = viewModel.currentUser ?: return
+    private fun setEditTexts() {
+        val currentUser = UserUtils.getCurrentUser() ?: return
         binding.apply {
             edtName.setText(currentUser.name)
             edtSurname.setText(currentUser.surname)
@@ -53,7 +59,7 @@ class EditProfileFragment :
             edtSurname.text.clear()
             edtName.text.clear()
         }
-        setEdittexts()
+        setEditTexts()
     }
 
 

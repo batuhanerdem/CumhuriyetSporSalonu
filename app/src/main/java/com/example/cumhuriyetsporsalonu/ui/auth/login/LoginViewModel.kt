@@ -1,5 +1,6 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.login
 
+import android.util.Log
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import com.example.cumhuriyetsporsalonu.utils.Resource
@@ -14,17 +15,26 @@ class LoginViewModel @Inject constructor(
     var userUid: String? = null
 
 
-    fun loginWithEmailAndPassword(email: String, password: String) {
-        if (email.isBlank() || password.isBlank()) return
-        sendAction(LoginActionBus.Loading)
+    fun login(email: String, password: String) {
         firebaseRepository.signIn(
             email, password
         ) { result ->
             when (result) {
-                is Resource.Loading -> {}
-                is Resource.Error -> sendAction(LoginActionBus.ShowError(result.message))
+                is Resource.Loading -> {
+                    var count = 0
+                    Log.d(TAG, "login: true ${count++}")
+                    setLoading(true)
+                }
+
+                is Resource.Error -> {
+                    setLoading(false)
+                    sendAction(LoginActionBus.ShowError(result.message))
+                }
 
                 is Resource.Success -> {
+                    var count = 1
+                    Log.d(TAG, "login: false ${count++}")
+                    setLoading(false)
                     result.data?.let {
                         userUid = it
                         sendAction(LoginActionBus.LoggedIn)

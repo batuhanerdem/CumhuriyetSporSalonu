@@ -1,7 +1,7 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.login
 
-import com.example.cumhuriyetsporsalonu.utils.Stringfy
 import com.example.cumhuriyetsporsalonu.ui.base.BaseActionBus
+import com.example.cumhuriyetsporsalonu.utils.Stringfy
 
 sealed interface LoginActionBus : BaseActionBus {
 
@@ -10,7 +10,5 @@ sealed interface LoginActionBus : BaseActionBus {
     data object LoggedIn : LoginActionBus
 
     data class ShowError(val error: Stringfy? = null) : LoginActionBus
-
-    data object Loading : LoginActionBus
 
 }

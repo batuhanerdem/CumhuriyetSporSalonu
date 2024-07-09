@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.bmi.BMIFragment">
+    tools:context=".ui.main.bmi.BmiFragment">
 
     <include
         android:id="@+id/layoutNotificationBar"
@@ -48,6 +48,7 @@
         android:drawableEnd="@drawable/ic_weight"
         android:fontFamily="@font/lexend_regular"
         android:hint="@string/weight"
+        android:inputType="numberDecimal"
         android:paddingHorizontal="20dp"
         android:textAlignment="textStart"
         android:textColor="@color/black"
@@ -67,6 +68,7 @@
         android:drawableEnd="@drawable/ic_height"
         android:fontFamily="@font/lexend_regular"
         android:hint="@string/height"
+        android:inputType="number"
         android:paddingHorizontal="20dp"
         android:textAlignment="textStart"
         android:textColor="@color/black"

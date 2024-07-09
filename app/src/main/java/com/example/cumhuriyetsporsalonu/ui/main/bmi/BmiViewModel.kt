@@ -10,9 +10,9 @@ import java.math.RoundingMode
 import javax.inject.Inject
 
 @HiltViewModel
-class BMIViewModel @Inject constructor(
+class BmiViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
-) : BaseViewModel<BMIActionBus>() {
+) : BaseViewModel<BmiActionBus>() {
 
 
     fun calculateBMI(weight: Double, height: Double): Double {
@@ -35,22 +35,22 @@ class BMIViewModel @Inject constructor(
     }
 
     fun saveInfos(bmi: Double, height: Double, weight: Double) {
-        val currentUser = UserUtils.getCurrentUser()
-        currentUser ?: return
+        val currentUser = UserUtils.getCurrentUser() ?: return
         val newUser = currentUser.copy(
             bmi = bmi.toString(), height = height.toString(), weight = weight.toString()
         )
         firebaseRepository.setUser(newUser) { action ->
             when (action) {
-                is Resource.Error -> sendAction(BMIActionBus.ShowError())
+                is Resource.Error -> {
+                    sendAction(BmiActionBus.ShowError())
+                }
+
                 is Resource.Loading -> {}
                 is Resource.Success -> {
                     UserUtils.setCurrentUser(newUser)
-                    sendAction(BMIActionBus.BMISaved)
+                    sendAction(BmiActionBus.BmiSaved)
                 }
             }
-
         }
     }
-
 }

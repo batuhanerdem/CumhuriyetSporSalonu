@@ -3,12 +3,15 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_lesson"
         android:title="" />
+
     <item
-        android:id="@+id/BMIFragment"
+        android:id="@+id/bmiFragment"
         android:icon="@drawable/ic_bmi"
         android:title="" />
+
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_profile"
         android:title="" />
+
 </menu>

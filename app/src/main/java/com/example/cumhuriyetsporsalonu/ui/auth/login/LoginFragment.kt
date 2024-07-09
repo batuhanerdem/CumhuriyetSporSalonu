@@ -4,6 +4,7 @@ import com.example.cumhuriyetsporsalonu.R
 import com.example.cumhuriyetsporsalonu.databinding.FragmentLoginBinding
 import com.example.cumhuriyetsporsalonu.ui.auth.AuthActivity
 import com.example.cumhuriyetsporsalonu.ui.base.BaseFragment
+import com.example.cumhuriyetsporsalonu.utils.NullOrEmptyValidator
 import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,18 +22,13 @@ class LoginFragment : BaseFragment<LoginActionBus, LoginViewModel, FragmentLogin
         when (action) {
             LoginActionBus.Init -> {}
             is LoginActionBus.LoggedIn -> {
-                progressBar.hide()
-                val message = R.string.login_success.stringfy()
-                showSuccessMessage(message)
                 viewModel.userUid?.let {
                     setUidToActivityViewModel(it)
                     navigateSplash()
                 }
             }
 
-            LoginActionBus.Loading -> progressBar.show()
             is LoginActionBus.ShowError -> {
-                progressBar.hide()
                 val message = action.error ?: R.string.login_error_default.stringfy()
                 showErrorMessage(message)
             }
@@ -45,10 +41,11 @@ class LoginFragment : BaseFragment<LoginActionBus, LoginViewModel, FragmentLogin
                 navigateRegister()
             }
             btnLogin.setOnClickListener {
-                if (edtEmail.text == null || edtPassword.text == null) return@setOnClickListener
+                val isValidated = NullOrEmptyValidator.validate(edtEmail.text, edtPassword.text)
+                if (!isValidated) return@setOnClickListener
                 val email = edtEmail.text.toString()
                 val password = edtPassword.text.toString()
-                viewModel.loginWithEmailAndPassword(email, password)
+                viewModel.login(email, password)
             }
         }
     }

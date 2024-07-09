@@ -29,19 +29,3 @@ enum class VerifiedStatus(val asString: String) : Parcelable {
         }
     }
 }
-
-fun String.toVerifiedStatus(): VerifiedStatus? {
-    return when (this) {
-        "Verified" -> VerifiedStatus.VERIFIED
-        "Not Answered" -> VerifiedStatus.NOTANSWERED
-        "Denied" -> VerifiedStatus.DENIED
-        else -> null
-    }
-}
-
-fun Boolean.toVerifiedStatus(): VerifiedStatus {
-    return when (this) {
-        true -> VerifiedStatus.VERIFIED
-        false -> VerifiedStatus.DENIED
-    }
-}

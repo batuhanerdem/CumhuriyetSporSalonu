@@ -1,9 +1,9 @@
 package com.example.cumhuriyetsporsalonu.ui.main.profile
 
-import android.util.Log
 import com.example.cumhuriyetsporsalonu.databinding.FragmentProfileBinding
 import com.example.cumhuriyetsporsalonu.ui.base.BaseFragment
 import com.example.cumhuriyetsporsalonu.ui.main.profile.adapter.LessonNameAdapter
+import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +21,10 @@ class ProfileFragment : BaseFragment<ProfileActionBus, ProfileViewModel, Fragmen
 
     override suspend fun onAction(action: ProfileActionBus) {
         when (action) {
-            ProfileActionBus.Error -> {}
+            is ProfileActionBus.ShowError -> {
+                showErrorMessage(action.error)
+            }
+
             ProfileActionBus.Init -> {}
             ProfileActionBus.LessonsLoaded -> {
                 adapter.submitList(viewModel.lessonList)
@@ -30,7 +33,7 @@ class ProfileFragment : BaseFragment<ProfileActionBus, ProfileViewModel, Fragmen
     }
 
     private fun setUserProfile() {
-        val user = viewModel.currentUser ?: return
+        val user = UserUtils.getCurrentUser() ?: return
         binding.apply {
             "${user.name} ${user.surname}".also { tvName.text = it }
             tvHeightShow.text = user.height ?: "-"
@@ -51,6 +54,5 @@ class ProfileFragment : BaseFragment<ProfileActionBus, ProfileViewModel, Fragmen
             navigateTo(action)
         }
     }
-
 
 }
