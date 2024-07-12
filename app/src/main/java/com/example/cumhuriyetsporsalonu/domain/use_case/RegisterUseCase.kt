@@ -24,13 +24,13 @@ class RegisterUseCase @Inject constructor(private val repository: FirebaseReposi
                         repository.setUser(myUser) { result ->
                             when (result) {
                                 is Resource.Success -> callBack(Resource.Success(it))
-                                else -> callBack
+                                else -> callBack(result)
                             }
                         }
                     }
                 }
 
-                else -> callBack
+                else -> callBack(result)
             }
 
         }
