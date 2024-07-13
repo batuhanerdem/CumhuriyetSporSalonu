@@ -2,8 +2,10 @@ package com.example.cumhuriyetsporsalonu.data.remote.repository
 
 import com.example.cumhuriyetsporsalonu.domain.mappers.DocumentConverters.convertDocumentToLessonList
 import com.example.cumhuriyetsporsalonu.domain.mappers.DocumentConverters.convertDocumentToStudent
+import com.example.cumhuriyetsporsalonu.domain.mappers.VerifiedStatusMapper.toVerifiedStatus
 import com.example.cumhuriyetsporsalonu.domain.model.Lesson
 import com.example.cumhuriyetsporsalonu.domain.model.User
+import com.example.cumhuriyetsporsalonu.domain.model.VerifiedStatus
 import com.example.cumhuriyetsporsalonu.domain.model.firebase_collection.CollectionName
 import com.example.cumhuriyetsporsalonu.domain.model.firebase_collection.LessonField
 import com.example.cumhuriyetsporsalonu.domain.model.firebase_collection.UserField
@@ -64,6 +66,27 @@ class FirebaseRepository @Inject constructor(
         awaitClose { }
     }
 
+    fun listenVerifiedStatus(id: String): Flow<Resource<VerifiedStatus>> = callbackFlow {
+        trySend(Resource.Loading())
+        val listenerRegistration = userCollectionRef.document(id).addSnapshotListener { value, error ->
+            if (error != null) {
+                trySend(Resource.Error(message = error.message?.stringfy()))
+                return@addSnapshotListener
+            }
+            value?.let {
+                if (it.get(UserField.IS_VERIFIED.key) == null) trySend(Resource.Error())
+                else {
+                    val statusString = it.get(UserField.IS_VERIFIED.key) as String
+                    trySend(Resource.Success(statusString.toVerifiedStatus()))
+                }
+            }
+        }
+
+        awaitClose {
+            listenerRegistration.remove()
+        }
+    }
+
     fun getUserByUid(uid: String): Flow<Resource<User>> = callbackFlow {
         trySend(Resource.Loading())
         userCollectionRef.document(uid).get().addOnCompleteListener { task ->
@@ -79,7 +102,7 @@ class FirebaseRepository @Inject constructor(
                 trySend(Resource.Error(message = task.exception?.message?.stringfy()))
             }
         }.await()
-        awaitClose { }
+//        awaitClose { }
     }
 
     fun getLessonsByStudentUid(studentUid: String): Flow<Resource<List<Lesson>>> = callbackFlow {

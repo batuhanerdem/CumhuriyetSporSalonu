@@ -43,8 +43,7 @@ class SplashFragment : BaseFragment<SplashActionBus, SplashViewModel, FragmentSp
     private fun navigateNotVerifiedFragment() {
         progressBar.hide()
         val user = UserUtils.getCurrentUser() ?: return
-        val action =
-            SplashFragmentDirections.actionSplashFragmentToNotVerifiedFragment(user.isVerified)
+        val action = SplashFragmentDirections.actionSplashFragmentToNotVerifiedFragment(user.uid)
         navigateTo(action)
     }
 

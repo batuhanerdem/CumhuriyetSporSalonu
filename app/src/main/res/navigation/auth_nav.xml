@@ -41,7 +41,7 @@
         android:label="fragment_not_verified"
         tools:layout="@layout/fragment_not_verified" >
         <argument
-            android:name="verifiedStatus"
-            app:argType="com.example.cumhuriyetsporsalonu.domain.model.VerifiedStatus" />
+            android:name="userId"
+            app:argType="string" />
     </fragment>
 </navigation>

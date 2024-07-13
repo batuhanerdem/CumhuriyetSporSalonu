@@ -96,6 +96,10 @@
     <string name="wait_for_verify">Your application has been sent to the admin. You\'ll need to wait for the admin to respond to your application. You\'ll be able to log in once your account is verified.</string>
     <string name="verify_denied">We\'re sorry, but your application to join this gym has been denied by the admin. If you have any questions or need further assistance, please contact the gym.</string>
 
+    <string name="verify_verified_title">Your application has been approved</string>
+    <string name="verify_verified_info">Your application has just been approved</string>
+    <string name="verify_verified">Your application has been approved by the administrator. We wish you healthy days.</string>
+
     <string name="profile">Profile</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="age">Age</string>

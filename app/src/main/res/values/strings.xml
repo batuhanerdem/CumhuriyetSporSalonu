@@ -93,6 +93,12 @@
     <string name="wait_for_verify_title">Başvuru bekliyor </string>
     <string name="verify_denied_title">Başvuru reddedildi</string>
     <string name="wait_for_verify_info">Başvurunuz inceleniyor.</string>
+
+
+    <string name="verify_verified_title">Başvurunuz kabul edildi</string>
+    <string name="verify_verified_info">Başvurunuz az önce kabul edildi</string>
+    <string name="verify_verified">Başvurunuz yönetici tarafından kabul edildi, sağlıklı günler dileriz.</string>
+
     <string name="verify_denied_info">Başvurunuz reddedildi.</string>
     <string name="verify_denied">Üzgünüz, ancak bu spor salonuna katılma başvurunuz yönetici tarafından reddedildi. Sorularınız varsa veya daha fazla yardıma ihtiyacınız olursa lütfen spor salonu ile iletişime geçin.</string>
     <string name="wait_for_verify">Başvurunuz yöneticiye gönderildi. Başvurunuza yanıt vermesi için yöneticiye beklemeniz gerekecek. Hesabınız doğrulandığında giriş yapabileceksiniz.</string>
