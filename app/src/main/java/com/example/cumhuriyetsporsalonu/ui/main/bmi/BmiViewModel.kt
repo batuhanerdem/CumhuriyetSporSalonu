@@ -1,10 +1,13 @@
 package com.example.cumhuriyetsporsalonu.ui.main.bmi
 
+import androidx.lifecycle.viewModelScope
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import com.example.cumhuriyetsporsalonu.utils.Resource
 import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.inject.Inject
@@ -39,7 +42,7 @@ class BmiViewModel @Inject constructor(
         val newUser = currentUser.copy(
             bmi = bmi.toString(), height = height.toString(), weight = weight.toString()
         )
-        firebaseRepository.setUser(newUser) { action ->
+        firebaseRepository.setUser(newUser).onEach { action ->
             when (action) {
                 is Resource.Error -> {
                     sendAction(BmiActionBus.ShowError())
@@ -51,6 +54,6 @@ class BmiViewModel @Inject constructor(
                     sendAction(BmiActionBus.BmiSaved)
                 }
             }
-        }
+        }.launchIn(viewModelScope)
     }
 }

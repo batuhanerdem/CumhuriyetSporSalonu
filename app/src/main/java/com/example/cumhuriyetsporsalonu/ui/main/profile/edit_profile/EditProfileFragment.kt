@@ -42,10 +42,10 @@ class EditProfileFragment :
     }
 
     private fun setOnClickListeners() {
-        binding.imgBack.setOnClickListener() {
+        binding.imgBack.setOnClickListener {
             navigateBack()
         }
-        binding.btnSave.setOnClickListener() {
+        binding.btnSave.setOnClickListener {
             val name = binding.edtName.text.toString()
             val surname = binding.edtSurname.text.toString()
             val age = binding.edtAge.text.toString()

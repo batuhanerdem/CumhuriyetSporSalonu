@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.cumhuriyetsporsalonu.databinding.ItemLessonProfileBinding
 
-class LessonNameAdapter(
-) : ListAdapter<String, LessonNameViewHolder>(LessonDiffCallback) {
+class LessonNameAdapter : ListAdapter<String, LessonNameViewHolder>(LessonDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonNameViewHolder {
         val binding =

@@ -5,36 +5,38 @@ import com.example.cumhuriyetsporsalonu.data.remote.repository.Uid
 import com.example.cumhuriyetsporsalonu.domain.model.User
 import com.example.cumhuriyetsporsalonu.utils.Resource
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @ViewModelScoped
 class RegisterUseCase @Inject constructor(private val repository: FirebaseRepository) {
-    fun execute(
+    suspend fun execute(
         email: String,
         password: String,
         name: String,
         surname: String,
-        callBack: (Resource<out Uid>) -> Unit
-    ) {
-        repository.registerWithEmailPassword(email, password) { result ->
+    ): Flow<Resource<Uid>> = flow {
+        repository.registerWithEmailPassword(email, password).collect { result ->
             when (result) {
                 is Resource.Success -> {
                     result.data?.let {
                         val myUser = User(it, email, name, surname)
-                        repository.setUser(myUser) { result ->
+                        repository.setUser(myUser).collect { result ->
                             when (result) {
-                                is Resource.Success -> callBack(Resource.Success(it))
-                                else -> callBack(result)
+                                is Resource.Success -> emit(Resource.Success(it))
+                                else -> emit(Resource.Error(message = result.message))
                             }
                         }
                     }
                 }
 
-                else -> callBack(result)
+                else -> emit(result)
             }
-
         }
-
     }
 
 }

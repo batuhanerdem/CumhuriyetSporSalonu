@@ -49,7 +49,7 @@ class ProfileFragment : BaseFragment<ProfileActionBus, ProfileViewModel, Fragmen
     }
 
     private fun setOnClickListeners() {
-        binding.tvEditProfile.setOnClickListener() {
+        binding.tvEditProfile.setOnClickListener {
             val action = ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()
             navigateTo(action)
         }

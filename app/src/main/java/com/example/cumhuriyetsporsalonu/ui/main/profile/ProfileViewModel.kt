@@ -1,11 +1,14 @@
 package com.example.cumhuriyetsporsalonu.ui.main.profile
 
+import androidx.lifecycle.viewModelScope
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.domain.model.Lesson
 import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import com.example.cumhuriyetsporsalonu.utils.Resource
 import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
@@ -15,7 +18,7 @@ class ProfileViewModel @Inject constructor(
     var lessonList = mutableListOf<String>()
     fun getLessons() {
         val currentUser = UserUtils.getCurrentUser() ?: return
-        firebaseRepository.getLessonsByStudentUid(currentUser.uid) { action ->
+        firebaseRepository.getLessonsByStudentUid(currentUser.uid).onEach { action ->
             when (action) {
                 is Resource.Error -> {
                     setLoading(false)
@@ -34,7 +37,7 @@ class ProfileViewModel @Inject constructor(
                 }
             }
 
-        }
+        }.launchIn(viewModelScope)
     }
 
     private fun generateLessonNameList(list: List<Lesson>) {

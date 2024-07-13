@@ -1,10 +1,13 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.login
 
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
 import com.example.cumhuriyetsporsalonu.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,17 +17,10 @@ class LoginViewModel @Inject constructor(
 
     var userUid: String? = null
 
-
     fun login(email: String, password: String) {
-        firebaseRepository.signIn(
-            email, password
-        ) { result ->
+        firebaseRepository.signIn(email, password).onEach { result ->
             when (result) {
-                is Resource.Loading -> {
-                    var count = 0
-                    Log.d(TAG, "login: true ${count++}")
-                    setLoading(true)
-                }
+                is Resource.Loading -> setLoading(true)
 
                 is Resource.Error -> {
                     setLoading(false)
@@ -32,8 +28,6 @@ class LoginViewModel @Inject constructor(
                 }
 
                 is Resource.Success -> {
-                    var count = 1
-                    Log.d(TAG, "login: false ${count++}")
                     setLoading(false)
                     result.data?.let {
                         userUid = it
@@ -41,6 +35,6 @@ class LoginViewModel @Inject constructor(
                     }
                 }
             }
-        }
+        }.launchIn(viewModelScope)
     }
 }

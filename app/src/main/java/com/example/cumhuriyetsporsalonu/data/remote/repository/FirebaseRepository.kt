@@ -12,6 +12,10 @@ import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @ViewModelScoped
@@ -21,67 +25,77 @@ class FirebaseRepository @Inject constructor(
     private val userCollectionRef = db.collection(CollectionName.USER.value)
     private val lessonCollectionRef = db.collection(CollectionName.LESSON.value)
 
-
-    fun registerWithEmailPassword(
-        email: String, password: String, callBack: (Resource<Uid>) -> Unit
-    ) {
-        callBack(Resource.Loading())
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val result = task.result
-                callBack(Resource.Success(result.user?.uid))
-            } else callBack(Resource.Error(message = task.exception?.message?.stringfy()))
+    fun registerWithEmailPassword(email: String, password: String): Flow<Resource<Uid>> =
+        callbackFlow {
+            trySend(Resource.Loading())
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val result = task.result
+                    trySend(Resource.Success(result.user?.uid))
+                } else {
+                    trySend(Resource.Error(message = task.exception?.message?.stringfy()))
+                }
+            }.await()
+            awaitClose { }
         }
-    }
 
-    fun signIn(
-        email: String, password: String, callBack: (Resource<Uid>) -> Unit
-    ) {
-        callBack(Resource.Loading())
+    fun signIn(email: String, password: String): Flow<Resource<Uid>> = callbackFlow {
+        trySend(Resource.Loading())
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val result = task.result
-                callBack(Resource.Success(result.user?.uid))
-            } else callBack(Resource.Error(message = task.exception?.message?.stringfy()))
-        }
+                trySend(Resource.Success(result.user?.uid))
+            } else {
+                trySend(Resource.Error(message = task.exception?.message?.stringfy()))
+            }
+        }.await()
+        awaitClose { }
     }
 
-    fun setUser(user: User, callback: (Resource<Nothing>) -> Unit) {
-        callback(Resource.Loading())
+    fun setUser(user: User): Flow<Resource<Nothing>> = callbackFlow {
+        trySend(Resource.Loading())
         userCollectionRef.document(user.uid).set(user.toHashMap()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                callback(Resource.Success())
-            } else callback(Resource.Error(message = task.exception?.message?.stringfy()))
-        }
+                trySend(Resource.Success())
+            } else {
+                trySend(Resource.Error(message = task.exception?.message?.stringfy()))
+            }
+        }.await()
+        awaitClose { }
     }
 
-    fun getUserByUid(uid: String, callback: (Resource<User>) -> Unit) {
-        callback(Resource.Loading())
+    fun getUserByUid(uid: String): Flow<Resource<User>> = callbackFlow {
+        trySend(Resource.Loading())
         userCollectionRef.document(uid).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val result = task.result
                 if (result.get(UserField.UID.key) == null) {
-                    callback(Resource.Error())
-                    return@addOnCompleteListener
+                    trySend(Resource.Error())
+                } else {
+                    val myUser = convertDocumentToStudent(result)
+                    trySend(Resource.Success(myUser))
                 }
-                val myUser = convertDocumentToStudent(result)
-                callback(Resource.Success(myUser))
+            } else {
+                trySend(Resource.Error(message = task.exception?.message?.stringfy()))
             }
-        }
+        }.await()
+        awaitClose { }
     }
 
-    fun getLessonsByStudentUid(studentUid: String, callback: (Resource<List<Lesson>>) -> Unit) {
-        callback(Resource.Loading())
+    fun getLessonsByStudentUid(studentUid: String): Flow<Resource<List<Lesson>>> = callbackFlow {
+        trySend(Resource.Loading())
         lessonCollectionRef.whereArrayContains(LessonField.STUDENT_UIDS.key, studentUid)
             .orderBy(LessonField.DAY.key).orderBy(LessonField.START_HOUR.key).get()
             .addOnCompleteListener { task ->
-                callback(Resource.Loading())
                 if (task.isSuccessful) {
                     val result = task.result
                     val lessonList = convertDocumentToLessonList(result.documents)
-                    callback(Resource.Success(lessonList))
-                } else callback(Resource.Error(message = task.exception?.message?.stringfy()))
-            }
+                    trySend(Resource.Success(lessonList))
+                } else {
+                    trySend(Resource.Error(message = task.exception?.message?.stringfy()))
+                }
+            }.await()
+        awaitClose { }
     }
 }
 
