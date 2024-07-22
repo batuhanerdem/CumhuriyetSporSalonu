@@ -1,5 +1,6 @@
 package com.example.cumhuriyetsporsalonu.data.remote.repository
 
+import android.util.Log
 import com.example.cumhuriyetsporsalonu.domain.mappers.DocumentConverters.convertDocumentToLessonList
 import com.example.cumhuriyetsporsalonu.domain.mappers.DocumentConverters.convertDocumentToStudent
 import com.example.cumhuriyetsporsalonu.domain.mappers.VerifiedStatusMapper.toVerifiedStatus
@@ -14,6 +15,7 @@ import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -27,19 +29,26 @@ class FirebaseRepository @Inject constructor(
     private val userCollectionRef = db.collection(CollectionName.USER.value)
     private val lessonCollectionRef = db.collection(CollectionName.LESSON.value)
 
-    fun register(email: String, password: String): Flow<Resource<Uid>> =
-        callbackFlow {
-            trySend(Resource.Loading())
+    fun register(email: String, password: String): Flow<Resource<Uid>> = callbackFlow {
+        trySend(Resource.Loading())
+        try {
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+//                    Log.d("tag", "register: ${task.isSuccessful} ${task.result} ${task.exception} ") //crash yiyorum bu satirdan hayat cok guzel
                 if (task.isSuccessful) {
                     val result = task.result
                     trySend(Resource.Success(result.user?.uid))
                 } else {
+                    Log.d("tag", "register: im here")
                     trySend(Resource.Error(message = task.exception?.message?.stringfy()))
                 }
             }.await()
-            awaitClose { }
+        } catch (e: Exception) {
+            Log.d("tag", "exception: ${e.message}")
         }
+
+        awaitClose { this.cancel() }
+
+    }
 
     fun signIn(email: String, password: String): Flow<Resource<Uid>> = callbackFlow {
         trySend(Resource.Loading())
@@ -51,10 +60,10 @@ class FirebaseRepository @Inject constructor(
                 trySend(Resource.Error(message = task.exception?.message?.stringfy()))
             }
         }.await()
-        awaitClose { }
+        awaitClose { this.cancel() }
     }
 
-    fun setUser(user: User): Flow<Resource<Nothing>> = callbackFlow {
+    fun setUser(user: User): Flow<Resource<Unit>> = callbackFlow {
         trySend(Resource.Loading())
         userCollectionRef.document(user.uid).set(user.toHashMap()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -63,27 +72,29 @@ class FirebaseRepository @Inject constructor(
                 trySend(Resource.Error(message = task.exception?.message?.stringfy()))
             }
         }.await()
-        awaitClose { }
+        awaitClose { this.cancel() }
     }
 
     fun listenVerifiedStatus(id: String): Flow<Resource<VerifiedStatus>> = callbackFlow {
         trySend(Resource.Loading())
-        val listenerRegistration = userCollectionRef.document(id).addSnapshotListener { value, error ->
-            if (error != null) {
-                trySend(Resource.Error(message = error.message?.stringfy()))
-                return@addSnapshotListener
-            }
-            value?.let {
-                if (it.get(UserField.IS_VERIFIED.key) == null) trySend(Resource.Error())
-                else {
-                    val statusString = it.get(UserField.IS_VERIFIED.key) as String
-                    trySend(Resource.Success(statusString.toVerifiedStatus()))
+        val listenerRegistration =
+            userCollectionRef.document(id).addSnapshotListener { value, error ->
+                if (error != null) {
+                    trySend(Resource.Error(message = error.message?.stringfy()))
+                    return@addSnapshotListener
+                }
+                value?.let {
+                    if (it.get(UserField.IS_VERIFIED.key) == null) trySend(Resource.Error())
+                    else {
+                        val statusString = it.get(UserField.IS_VERIFIED.key) as String
+                        trySend(Resource.Success(statusString.toVerifiedStatus()))
+                    }
                 }
             }
-        }
 
         awaitClose {
             listenerRegistration.remove()
+            this.cancel()
         }
     }
 
@@ -102,7 +113,7 @@ class FirebaseRepository @Inject constructor(
                 trySend(Resource.Error(message = task.exception?.message?.stringfy()))
             }
         }.await()
-//        awaitClose { }
+        awaitClose { this.cancel() }
     }
 
     fun getLessonsByStudentUid(studentUid: String): Flow<Resource<List<Lesson>>> = callbackFlow {
@@ -118,7 +129,7 @@ class FirebaseRepository @Inject constructor(
                     trySend(Resource.Error(message = task.exception?.message?.stringfy()))
                 }
             }.await()
-        awaitClose { }
+        awaitClose { this.cancel() }
     }
 }
 
