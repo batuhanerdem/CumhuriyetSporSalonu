@@ -27,7 +27,7 @@ class FirebaseRepository @Inject constructor(
     private val userCollectionRef = db.collection(CollectionName.USER.value)
     private val lessonCollectionRef = db.collection(CollectionName.LESSON.value)
 
-    fun registerWithEmailPassword(email: String, password: String): Flow<Resource<Uid>> =
+    fun register(email: String, password: String): Flow<Resource<Uid>> =
         callbackFlow {
             trySend(Resource.Loading())
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
