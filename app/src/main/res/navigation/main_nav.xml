@@ -8,7 +8,11 @@
         android:id="@+id/homeFragment"
         android:name="com.example.cumhuriyetsporsalonu.ui.main.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_requestLessonFragment"
+            app:destination="@id/requestLessonFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bmiFragment"
         android:name="com.example.cumhuriyetsporsalonu.ui.main.bmi.BmiFragment"
@@ -28,4 +32,8 @@
         android:name="com.example.cumhuriyetsporsalonu.ui.main.profile.edit_profile.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/requestLessonFragment"
+        android:name="com.example.cumhuriyetsporsalonu.ui.main.home.request_a_lesson.RequestLessonFragment"
+        android:label="RequestLessonFragment" />
 </navigation>

@@ -5,32 +5,60 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.cumhuriyetsporsalonu.databinding.ItemLessonBinding
+import com.example.cumhuriyetsporsalonu.databinding.ItemLessonSelectingBinding
 import com.example.cumhuriyetsporsalonu.domain.model.Lesson
+import com.example.cumhuriyetsporsalonu.domain.model.LessonViewHolderTypes
+import com.example.cumhuriyetsporsalonu.domain.model.LessonViewHolderTypes.ADDING
+import com.example.cumhuriyetsporsalonu.domain.model.LessonViewHolderTypes.LISTING
+import com.example.cumhuriyetsporsalonu.utils.SelectableData
 
-class LessonAdapter(
+class LessonListingAdapter(
+    private val type: LessonViewHolderTypes = LISTING,
     private val lessonOnClick: (lesson: Lesson) -> Unit
-) : ListAdapter<Lesson, LessonViewHolder>(LessonDiffCallback) {
+) : ListAdapter<SelectableData<Lesson>, LessonViewHolder>(LessonDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
-        val binding = ItemLessonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LessonViewHolder(binding)
+        when (type) {
+            LISTING -> {
+                val binding =
+                    ItemLessonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return (LessonListingViewHolder(binding))
+
+            }
+
+            ADDING -> {
+                val binding = ItemLessonSelectingBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+                return LessonSelectingViewHolder(binding)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (type) {
+            LISTING -> LISTING.ordinal
+            ADDING -> ADDING.ordinal
+        }
     }
 
     override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
         val currentLesson = getItem(position)
-        holder.binding.layoutInnerConstraint.setOnClickListener {
-            lessonOnClick(currentLesson)
-        }
+        holder.setOnClickListener(currentLesson, lessonOnClick)
         holder.bind(currentLesson)
     }
 
-    object LessonDiffCallback : DiffUtil.ItemCallback<Lesson>() {
-        override fun areItemsTheSame(oldItem: Lesson, newItem: Lesson): Boolean {
-            return oldItem == newItem
+    object LessonDiffCallback : DiffUtil.ItemCallback<SelectableData<Lesson>>() {
+        override fun areItemsTheSame(
+            oldItem: SelectableData<Lesson>, newItem: SelectableData<Lesson>
+        ): Boolean {
+            return oldItem.data.uid == newItem.data.uid
         }
 
-        override fun areContentsTheSame(oldItem: Lesson, newItem: Lesson): Boolean {
-            return oldItem.uid == newItem.uid
+        override fun areContentsTheSame(
+            oldItem: SelectableData<Lesson>, newItem: SelectableData<Lesson>
+        ): Boolean {
+            return oldItem.isSelected == newItem.isSelected
         }
     }
 

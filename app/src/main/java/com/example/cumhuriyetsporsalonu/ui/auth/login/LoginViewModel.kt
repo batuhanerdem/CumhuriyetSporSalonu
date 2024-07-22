@@ -1,6 +1,5 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.login
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
@@ -8,12 +7,19 @@ import com.example.cumhuriyetsporsalonu.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : BaseViewModel<LoginActionBus>() {
+
+    init {
+        viewModelScope.launch {
+//            firebaseRepository.deleteAllLessonsFromStudents()
+        }
+    }
 
     var userUid: String? = null
 

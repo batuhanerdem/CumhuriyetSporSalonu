@@ -27,6 +27,7 @@ class MainActivity : BaseActivity<MainActionBus, MainActivityViewModel, Activity
         val navController = navHostFragment.navController
         navController.addOnDestinationChangedListener { _, navDestination, _ ->
             binding.bottomNavigationView.isGone = when (navDestination.id) {
+                R.id.requestLessonFragment,
                 R.id.editProfileFragment -> true
                 else -> false
             }

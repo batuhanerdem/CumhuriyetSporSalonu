@@ -14,15 +14,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imgPlus"
+        android:id="@+id/imgBack"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginStart="20dp"
-        android:contentDescription="@string/request_a_lesson"
-        android:src="@drawable/ic_plus"
+        android:src="@drawable/ic_back"
         app:layout_constraintBottom_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
 
     <TextView
         android:id="@+id/tvTitle"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/lexend_medium"
-        android:text="@string/lessons"
+        android:text="@string/request_a_lesson"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -44,10 +44,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/lexend_semibold"
-        android:text="@string/no_lesson_found"
+        android:text="@string/no_available_lessons_to_request"
         android:textAlignment="center"
         android:textColor="@color/dark_gray"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -13,6 +13,7 @@ import com.example.cumhuriyetsporsalonu.domain.model.firebase_collection.UserFie
 import com.example.cumhuriyetsporsalonu.utils.Resource
 import com.example.cumhuriyetsporsalonu.utils.Stringfy.Companion.stringfy
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.cancel
@@ -131,6 +132,48 @@ class FirebaseRepository @Inject constructor(
             }.await()
         awaitClose { this.cancel() }
     }
+
+    fun getAllLessons(): Flow<Resource<List<Lesson>>> = callbackFlow {
+        trySend(Resource.Loading())
+        lessonCollectionRef.orderBy(LessonField.DAY.key).orderBy(LessonField.START_HOUR.key).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val result = task.result
+                    val lessonList = convertDocumentToLessonList(result.documents)
+                    trySend(Resource.Success(lessonList))
+                } else {
+                    trySend(Resource.Error(message = task.exception?.message?.stringfy()))
+                }
+            }.await()
+        awaitClose { this.cancel() }
+    }
+
+    fun requestLesson(studentUid: String, lessonUid: String): Flow<Resource<Unit>> = callbackFlow {
+        trySend(Resource.Loading())
+        lessonCollectionRef.document(lessonUid)
+            .update(LessonField.REQUEST_UIDS.key, FieldValue.arrayUnion(studentUid))
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    trySend(Resource.Success())
+                } else {
+                    trySend(Resource.Error(message = task.exception?.message?.stringfy()))
+                }
+            }.await()
+        awaitClose { this.cancel() }
+    }
+
+    fun deleteAllLessonsFromStudents() { // test
+        userCollectionRef.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val result = task.result
+                result.documents.forEach {
+                    Log.d("tag", "deleteAllLessonsFromStudents: $it")
+                    it.reference.update(UserField.LESSON_UIDS.key, emptyList<String>())
+                }
+            }
+        }
+    }
+
 }
 
 typealias Uid = String
