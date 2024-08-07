@@ -24,17 +24,16 @@ class LoginViewModel @Inject constructor(
     var userUid: String? = null
 
     fun login(email: String, password: String) {
+        setLoading(true)
         firebaseRepository.signIn(email, password).onEach { result ->
+            setLoading(false)
             when (result) {
-                is Resource.Loading -> setLoading(true)
 
                 is Resource.Error -> {
-                    setLoading(false)
                     sendAction(LoginActionBus.ShowError(result.message))
                 }
 
                 is Resource.Success -> {
-                    setLoading(false)
                     result.data?.let {
                         userUid = it
                         sendAction(LoginActionBus.LoggedIn)

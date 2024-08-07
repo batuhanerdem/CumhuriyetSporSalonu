@@ -1,6 +1,5 @@
 package com.example.cumhuriyetsporsalonu.domain.use_case
 
-import android.util.Log
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.data.remote.repository.Uid
 import com.example.cumhuriyetsporsalonu.domain.model.User
@@ -13,7 +12,7 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class RegisterUseCase @Inject constructor(private val repository: FirebaseRepository) {
-    suspend fun execute(
+    fun execute(
         email: String,
         password: String,
         name: String,
@@ -26,7 +25,6 @@ class RegisterUseCase @Inject constructor(private val repository: FirebaseReposi
             val myUser = User(result.data, email, name, surname)
             repository.setUser(myUser)
         }.collect {
-            Log.d("tag", "execute: $it ${it.data} ${it.message}")
             if (it is Resource.Error) emit(Resource.Error(it.message))
         }
     }

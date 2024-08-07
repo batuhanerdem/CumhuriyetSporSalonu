@@ -19,16 +19,15 @@ class NotVerifiedViewModel @Inject constructor(
     val status get() = _status
 
     fun getUserVerifiedStatus(id: String) {
+        setLoading(true)
         firebaseRepository.listenVerifiedStatus(id).onEach { result ->
+            setLoading(false)
             when (result) {
                 is Resource.Error -> {
-                    setLoading(false)
                     sendAction(NotVerifiedActionBus.ShowError(result.message))
                 }
 
-                is Resource.Loading -> setLoading(true)
                 is Resource.Success -> {
-                    setLoading(false)
                     result.data?.let {
                         _status = it
                         sendAction(NotVerifiedActionBus.StatusLoaded)

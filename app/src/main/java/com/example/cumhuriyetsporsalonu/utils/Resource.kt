@@ -16,5 +16,4 @@ sealed class Resource<T>(
         }
     }
 
-    class Loading<T>(data: T? = null) : Resource<T>(data)
 }

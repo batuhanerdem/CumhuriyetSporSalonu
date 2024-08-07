@@ -1,8 +1,6 @@
 package com.example.cumhuriyetsporsalonu.ui.auth.splash
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.cumhuriyetsporsalonu.data.remote.repository.FirebaseRepository
 import com.example.cumhuriyetsporsalonu.domain.model.VerifiedStatus
 import com.example.cumhuriyetsporsalonu.ui.base.BaseViewModel
@@ -18,17 +16,15 @@ class SplashViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : BaseViewModel<SplashActionBus>() {
     fun setCurrentUser(uid: String) {
+        setLoading(true)
         firebaseRepository.getUserByUid(uid).onEach { action ->
+            setLoading(false)
             when (action) {
                 is Resource.Error -> {
-                    setLoading(false)
                     sendAction(SplashActionBus.Error)
                 }
 
-                is Resource.Loading -> setLoading(true)
-
                 is Resource.Success -> {
-                    setLoading(false)
                     val user = action.data ?: return@onEach
                     UserUtils.setCurrentUser(user)
                     if (user.isVerified != VerifiedStatus.VERIFIED) {

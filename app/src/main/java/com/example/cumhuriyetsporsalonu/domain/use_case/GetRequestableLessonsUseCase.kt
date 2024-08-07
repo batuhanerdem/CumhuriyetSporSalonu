@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @ViewModelScoped
 class GetRequestableLessonsUseCase @Inject constructor(private val repository: FirebaseRepository) {
-    suspend fun execute(studentUid: String): Flow<Resource<List<Lesson>>> = flow {
+    fun execute(studentUid: String): Flow<Resource<List<Lesson>>> = flow {
         repository.getAllLessons().collect { result ->
             if (result !is Resource.Success) return@collect emit(result)
             result.data?.let { lessonList ->

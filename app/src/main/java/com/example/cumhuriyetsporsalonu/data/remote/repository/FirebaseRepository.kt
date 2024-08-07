@@ -31,20 +31,18 @@ class FirebaseRepository @Inject constructor(
     private val lessonCollectionRef = db.collection(CollectionName.LESSON.value)
 
     fun register(email: String, password: String): Flow<Resource<Uid>> = callbackFlow {
-        trySend(Resource.Loading())
         try {
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-//                    Log.d("tag", "register: ${task.isSuccessful} ${task.result} ${task.exception} ") //crash yiyorum bu satirdan hayat cok guzel
                 if (task.isSuccessful) {
                     val result = task.result
                     trySend(Resource.Success(result.user?.uid))
                 } else {
-                    Log.d("tag", "register: im here")
                     trySend(Resource.Error(message = task.exception?.message?.stringfy()))
                 }
             }.await()
         } catch (e: Exception) {
             Log.d("tag", "exception: ${e.message}")
+            trySend(Resource.Error(e.message?.stringfy()))
         }
 
         awaitClose { this.cancel() }
@@ -52,7 +50,6 @@ class FirebaseRepository @Inject constructor(
     }
 
     fun signIn(email: String, password: String): Flow<Resource<Uid>> = callbackFlow {
-        trySend(Resource.Loading())
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val result = task.result
@@ -65,7 +62,6 @@ class FirebaseRepository @Inject constructor(
     }
 
     fun setUser(user: User): Flow<Resource<Unit>> = callbackFlow {
-        trySend(Resource.Loading())
         userCollectionRef.document(user.uid).set(user.toHashMap()).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 trySend(Resource.Success())
@@ -77,7 +73,6 @@ class FirebaseRepository @Inject constructor(
     }
 
     fun listenVerifiedStatus(id: String): Flow<Resource<VerifiedStatus>> = callbackFlow {
-        trySend(Resource.Loading())
         val listenerRegistration =
             userCollectionRef.document(id).addSnapshotListener { value, error ->
                 if (error != null) {
@@ -100,7 +95,6 @@ class FirebaseRepository @Inject constructor(
     }
 
     fun getUserByUid(uid: String): Flow<Resource<User>> = callbackFlow {
-        trySend(Resource.Loading())
         userCollectionRef.document(uid).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val result = task.result
@@ -118,7 +112,6 @@ class FirebaseRepository @Inject constructor(
     }
 
     fun getLessonsByStudentUid(studentUid: String): Flow<Resource<List<Lesson>>> = callbackFlow {
-        trySend(Resource.Loading())
         lessonCollectionRef.whereArrayContains(LessonField.STUDENT_UIDS.key, studentUid)
             .orderBy(LessonField.DAY.key).orderBy(LessonField.START_HOUR.key).get()
             .addOnCompleteListener { task ->
@@ -134,7 +127,6 @@ class FirebaseRepository @Inject constructor(
     }
 
     fun getAllLessons(): Flow<Resource<List<Lesson>>> = callbackFlow {
-        trySend(Resource.Loading())
         lessonCollectionRef.orderBy(LessonField.DAY.key).orderBy(LessonField.START_HOUR.key).get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -149,7 +141,6 @@ class FirebaseRepository @Inject constructor(
     }
 
     fun requestLesson(studentUid: String, lessonUid: String): Flow<Resource<Unit>> = callbackFlow {
-        trySend(Resource.Loading())
         lessonCollectionRef.document(lessonUid)
             .update(LessonField.REQUEST_UIDS.key, FieldValue.arrayUnion(studentUid))
             .addOnCompleteListener { task ->

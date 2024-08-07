@@ -18,19 +18,15 @@ class ProfileViewModel @Inject constructor(
     var lessonList = mutableListOf<String>()
     fun getLessons() {
         val currentUser = UserUtils.getCurrentUser() ?: return
+        setLoading(true)
         firebaseRepository.getLessonsByStudentUid(currentUser.uid).onEach { action ->
+            setLoading(false)
             when (action) {
                 is Resource.Error -> {
-                    setLoading(false)
                     sendAction(ProfileActionBus.ShowError(action.message))
                 }
 
-                is Resource.Loading -> {
-                    setLoading(true)
-                }
-
                 is Resource.Success -> {
-                    setLoading(false)
                     action.data?.let {
                         generateLessonNameList(it)
                     }

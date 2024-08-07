@@ -20,10 +20,11 @@ class EditProfileViewModel @Inject constructor(
     ) {
         val currentUser = UserUtils.getCurrentUser() ?: return
         val newUser = currentUser.copy(name = name, surname = surname, age = age)
+        setLoading(true)
         firebaseRepository.setUser(newUser).onEach { action ->
+            setLoading(false)
             when (action) {
                 is Resource.Error -> sendAction(EditProfileActionBus.ShowError(action.message))
-                is Resource.Loading -> {}
                 is Resource.Success -> {
                     UserUtils.setCurrentUser(newUser)
                     sendAction(EditProfileActionBus.UserUpdated)
