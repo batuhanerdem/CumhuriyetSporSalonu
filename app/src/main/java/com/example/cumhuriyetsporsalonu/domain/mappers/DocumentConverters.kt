@@ -67,7 +67,7 @@ object DocumentConverters {
     }
 
 
-    fun convertDocumentToLesson(doc: DocumentSnapshot): Lesson? {
+    private fun convertDocumentToLesson(doc: DocumentSnapshot): Lesson? {
         return try {
             val uid = doc.get(LessonField.UID.key) as String
             val name = doc.get(LessonField.NAME.key) as String
