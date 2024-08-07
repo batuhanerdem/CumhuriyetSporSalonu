@@ -7,7 +7,8 @@ import com.example.cumhuriyetsporsalonu.utils.Resource
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.zip
 import javax.inject.Inject
 
 @ViewModelScoped
@@ -17,15 +18,19 @@ class RegisterUseCase @Inject constructor(private val repository: FirebaseReposi
         password: String,
         name: String,
         surname: String,
-    ): Flow<Resource<Uid>> = flow {
-        repository.register(email, password).flatMapConcat { result ->
-            if (result !is Resource.Success) return@flatMapConcat flow { emit(result) }
-            result.data ?: return@flatMapConcat flow { }
-            emit(Resource.Success(result.data))
+    ): Flow<Resource<Uid>> {
+        return repository.register(email, password).flatMapConcat { result ->
+            if (result is Resource.Error) return@flatMapConcat flowOf(Resource.Error(result.message))
+            result.data ?: return@flatMapConcat flowOf(Resource.Error(result.message))
             val myUser = User(result.data, email, name, surname)
-            repository.setUser(myUser)
-        }.collect {
-            if (it is Resource.Error) emit(Resource.Error(it.message))
+            repository.setUser(myUser).zip(flowOf(Resource.Success(result.data))) { setUser, uid ->
+                if (setUser is Resource.Error) Resource.Error<Uid>(setUser.message)
+                uid.data?.let {
+                    return@zip Resource.Success(it)
+                }
+                Resource.Error(uid.message)
+            }
+
         }
     }
 
