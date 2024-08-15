@@ -9,6 +9,7 @@ import com.example.cumhuriyetsporsalonu.utils.user.UserUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,19 +19,15 @@ class HomeViewModel @Inject constructor(private val firebaseRepository: Firebase
 
     fun getLessonsByUid() {
         val currentUser = UserUtils.getCurrentUser() ?: return
+        setLoading(true)
         firebaseRepository.getLessonsByStudentUid(currentUser.uid).onEach { action ->
+            setLoading(false)
             when (action) {
                 is Resource.Error -> {
-                    setLoading(false)
                     sendAction(HomeActionBus.ShowError(action.message))
                 }
 
-                is Resource.Loading -> {
-                    setLoading(true)
-                }
-
                 is Resource.Success -> {
-                    setLoading(false)
                     action.data?.let {
                         lessonList = it
                         sendAction(HomeActionBus.LessonsLoaded)

@@ -104,6 +104,9 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="age">Age</string>
     <string name="profile_info">* Age, weight, and BMI (body mass index) can only be changed from the BMI calculation section</string>
+    <string name="request_a_lesson">Request a Lesson</string>
+    <string name="request_sent">Request Sent</string>
+    <string name="no_available_lessons_to_request"> There are no available lessons to request</string>
 
 
 </resources>

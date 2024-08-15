@@ -108,6 +108,9 @@
 
     <string name="age">Yaş</string>
     <string name="profile_info">* Boy, kilo ve bmi(vücut kitle endeksi) yalnızca bmi hesaplama alanından değiştirilebilir</string>
+    <string name="request_a_lesson">Bir derse istek gönderin</string>
+    <string name="request_sent">İstek gönderildi</string>
+    <string name="no_available_lessons_to_request">İstek göndermeye uygun ders bulunmamaktadır</string>
 
 
 </resources>

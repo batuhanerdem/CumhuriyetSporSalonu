@@ -1,18 +1,14 @@
 package com.example.cumhuriyetsporsalonu.ui.main.home.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cumhuriyetsporsalonu.databinding.ItemLessonBinding
+import androidx.viewbinding.ViewBinding
 import com.example.cumhuriyetsporsalonu.domain.model.Lesson
+import com.example.cumhuriyetsporsalonu.utils.SelectableData
 
-class LessonViewHolder(val binding: ItemLessonBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(lesson: Lesson) {
-        val context = binding.tvName.context
-        binding.apply {
-            val dayText = lesson.lessonDate.day.stringIdAsStringfy.getString(context)
-            tvDay.text = dayText
-            tvName.text = lesson.name
-            val hoursText = "${lesson.lessonDate.startHour} - ${lesson.lessonDate.endHour}"
-            tvDate.text = hoursText
-        }
-    }
+abstract class LessonViewHolder(binding: ViewBinding) : RecyclerView.ViewHolder(binding.root) {
+    abstract fun bind(lessonSelectable: SelectableData<Lesson>)
+
+    abstract fun setOnClickListener(
+        lessonSelectable: SelectableData<Lesson>, callback: (Lesson) -> Unit
+    )
 }

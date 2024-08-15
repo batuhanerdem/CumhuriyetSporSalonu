@@ -42,13 +42,14 @@ class BmiViewModel @Inject constructor(
         val newUser = currentUser.copy(
             bmi = bmi.toString(), height = height.toString(), weight = weight.toString()
         )
+        setLoading(true)
         firebaseRepository.setUser(newUser).onEach { action ->
+            setLoading(false)
             when (action) {
                 is Resource.Error -> {
                     sendAction(BmiActionBus.ShowError())
                 }
 
-                is Resource.Loading -> {}
                 is Resource.Success -> {
                     UserUtils.setCurrentUser(newUser)
                     sendAction(BmiActionBus.BmiSaved)
