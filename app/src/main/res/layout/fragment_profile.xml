@@ -240,10 +240,10 @@
             android:id="@+id/tvLessons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lexend_medium"
+            android:fontFamily="@font/lexend_bold"
             android:text="@string/lessons"
             android:textColor="@color/custom_black"
-            android:textSize="16sp"
+            android:textSize="19sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

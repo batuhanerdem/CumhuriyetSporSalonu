@@ -36,8 +36,8 @@ class ProfileFragment : BaseFragment<ProfileActionBus, ProfileViewModel, Fragmen
         val user = UserUtils.getCurrentUser() ?: return
         binding.apply {
             "${user.name} ${user.surname}".also { tvName.text = it }
-            tvHeightShow.text = user.height ?: "-"
-            tvWeightShow.text = user.weight ?: "-"
+            tvHeightShow.text = user.height?.toDouble()?.toInt().toString() ?: "-"
+            tvWeightShow.text = user.weight?.toDouble()?.toInt().toString() ?: "-"
             tvAgeShow.text = user.age ?: "-"
             tvBMIShow.text = user.bmi ?: "-"
         }
