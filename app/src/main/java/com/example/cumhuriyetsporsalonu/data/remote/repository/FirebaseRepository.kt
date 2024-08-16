@@ -153,18 +153,6 @@ class FirebaseRepository @Inject constructor(
         awaitClose { this.cancel() }
     }
 
-    fun deleteAllLessonsFromStudents() { // test
-        userCollectionRef.get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val result = task.result
-                result.documents.forEach {
-                    Log.d("tag", "deleteAllLessonsFromStudents: $it")
-                    it.reference.update(UserField.LESSON_UIDS.key, emptyList<String>())
-                }
-            }
-        }
-    }
-
 }
 
 typealias Uid = String
