@@ -31,7 +31,10 @@ class BmiFragment : BaseFragment<BmiActionBus, BmiViewModel, FragmentBmiBinding>
     private fun setOnClickListeners() {
         binding.apply {
             btnCalculateBMI.setOnClickListener {
-                val isValidated = NullOrEmptyValidator.validate(edtHeight.text, edtWeight.text)
+                val isValidated = NullOrEmptyValidator.validate(
+                    edtHeight.text.toString(),
+                    edtWeight.text.toString()
+                )
                 if (!isValidated) return@setOnClickListener
                 val height = edtHeight.text.toString().toDouble()
                 val weight = edtWeight.text.toString().toDouble()
