@@ -41,7 +41,10 @@ class LoginFragment : BaseFragment<LoginActionBus, LoginViewModel, FragmentLogin
                 navigateRegister()
             }
             btnLogin.setOnClickListener {
-                val isValidated = NullOrEmptyValidator.validate(edtEmail.text, edtPassword.text)
+                val isValidated = NullOrEmptyValidator.validate(
+                    edtEmail.text.toString(),
+                    edtPassword.text.toString()
+                )
                 if (!isValidated) return@setOnClickListener
                 val email = edtEmail.text.toString()
                 val password = edtPassword.text.toString()
